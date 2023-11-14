@@ -18,10 +18,10 @@ public class PlayerBase : PlayerAbilities
     GameObject playerObject;
     Rigidbody2D rigidbody2D;
     GameObject camera;
-    // PlayerInput playerInput;
+    PlayerInput playerInput;
     RectTransform healthBarRect;
     Animator animator;
-    LevelBaseLoader levelLoader;
+    public LevelBaseLoader levelLoader;
 
     public void Tick()
     {
@@ -48,7 +48,6 @@ public class PlayerBase : PlayerAbilities
         if ((hitPoints + healing) >= hitPointsMax) hitPoints = hitPointsMax;
         else hitPoints += healing;
         healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
-
     }
 
     #endregion
@@ -111,7 +110,6 @@ public class PlayerBase : PlayerAbilities
         // float jump = playerInput.actions.FindAction("Jump").ReadValue<float>();
         // if (jump <= 0) return;
         bool jump = Input.GetKey(KeyCode.Space);
-        Debug.Log(jump);
         if(!jump) return;
         if (touchBottom) animator.SetBool("isJumping", false);
         if (!touchBottom) return;

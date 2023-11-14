@@ -7,6 +7,7 @@ public class PotionBase
     public GameObject potionObject;
     public Transform potionPosition;
     public bool used = false;
+    public LevelBaseLoader levelLoader;
 
     public virtual void UsePotion(Collider2D collider){
 
@@ -16,25 +17,16 @@ public class PotionBase
     public void InitPotion()
     {
         LoadPotion();
-        LoadSprite();
         LoadColliders();
     }
 
     public void LoadPotion()
     {
-        potionObject = new GameObject("Potion" + id);
+        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        GameObject prefab = Resources.Load<GameObject>(filename);
+        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        potionObject = levelLoader.PrefabInstantiate(prefab);
         potionObject.transform.position = potionPosition.position;
-    }
-
-    private void LoadSprite()
-    {
-        SpriteRenderer spriteRenderer = potionObject.AddComponent<SpriteRenderer>();
-        var rawData = System.IO.File.ReadAllBytes(filename);
-        Texture2D tex = new Texture2D(1, 1);
-        tex.LoadImage(rawData);
-        tex.wrapMode = TextureWrapMode.Clamp;
-        tex.filterMode = FilterMode.Point;
-        spriteRenderer.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f));
     }
 
     private void LoadColliders()

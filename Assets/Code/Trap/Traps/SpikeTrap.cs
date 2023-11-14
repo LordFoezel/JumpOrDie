@@ -6,7 +6,7 @@ public class SpikeTrap : TrapBase
         #nullable disable
     {
         this.id = id;
-        damage = 2;
+        damage = 1;
         filename = "Prefaps/Trap/SpikeTrap";
         name = "SpikeTrap";
         this.trapPosition = trapPosition;
