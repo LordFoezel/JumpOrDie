@@ -10,6 +10,7 @@ public class PlayerBase : PlayerAbilities
     bool touchRight = false;
     bool isReady = false;
     bool isAlive = true;
+    bool faceLeft = true;
     bool isInteracting = false;
 #nullable enable
     GameObject? focusObject;
@@ -25,8 +26,8 @@ public class PlayerBase : PlayerAbilities
 
     public void Tick()
     {
+        PauseGame();
         if (!isReady) return;
-        if (!isAlive) return;
         ControlePlayer();
     }
 
@@ -36,7 +37,7 @@ public class PlayerBase : PlayerAbilities
     {
         if ((hitPoints - damage) <= 0)
         {
-            isAlive = false;
+            PlayerDie();
             hitPoints = 0;
         }
         else hitPoints -= damage;
@@ -56,7 +57,7 @@ public class PlayerBase : PlayerAbilities
 
     private void ControlePlayer()
     {
-        PauseGame();
+        if (!isAlive) return;
         Interact();
         if (!isInteracting)
         {
@@ -67,18 +68,12 @@ public class PlayerBase : PlayerAbilities
 
     private void PauseGame()
     {
-        // if (playerInput.actions.FindAction("Pause").ReadValue<float>() != 1) return;
-        if (Input.GetKeyDown(KeyCode.Escape)) levelLoader.PauseGame();
+        if (playerInput.actions.FindAction("Pause").ReadValue<float>() == 1) levelLoader.PauseGame();
     }
 
     private void Interact()
     {
-        // if (playerInput.actions.FindAction("Interaction").ReadValue<float>() != 1)
-        // {
-        //     isInteracting = false;
-        //     return;
-        // }
-        if (Input.GetKey(KeyCode.F))
+        if (playerInput.actions.FindAction("Interaction").ReadValue<float>() == 1)
         {
             isInteracting = true;
             if (!focusObject) return;
@@ -91,26 +86,43 @@ public class PlayerBase : PlayerAbilities
         }
     }
 
+    private void PlayerDie()
+    {
+        animator.SetTrigger("die");
+        this.isAlive = false;
+        Debug.Log("Bevore");
+        UtilWait.WaitSeconds(10);
+        Debug.Log("after");
+        animator.SetBool("isDead", true);
+    }
+
     private void Move()
     {
-        // float move = playerInput.actions.FindAction("Move").ReadValue<float>();
-        float move = Input.GetAxis("Horizontal");
+        float move = playerInput.actions.FindAction("Move").ReadValue<float>();
         if (touchLeft && move < 0) move = 0;
         if (touchRight && move > 0) move = 0;
         rigidbody2D.velocity = new Vector2(move * moveSpeed, rigidbody2D.velocity.y);
         GameObject character = playerObject.transform.Find("Character").gameObject;
-        if (move > 0) character.transform.rotation = new Quaternion(character.transform.rotation.x, 0, character.transform.rotation.z, character.transform.rotation.w);
-        if (move < 0) character.transform.rotation = new Quaternion(character.transform.rotation.x, 180, character.transform.rotation.z, character.transform.rotation.w);
+        if (move > 0)
+        {
+            Debug.Log("bigger 0");
+            character.transform.rotation = new Quaternion(character.transform.rotation.x, 0, character.transform.rotation.z, character.transform.rotation.w);
+        }
+        if (move < 0)
+        {
+            Debug.Log(character.transform.rotation);
+            // character.transform.rotation = new Quaternion(character.transform.rotation.x, 180, character.transform.rotation.z, character.transform.rotation.w);
+            character.transform.localScale = new Vector3(character.transform.localScale.x * -1, character.transform.localScale.y, character.transform.localScale.z);
+            Debug.Log(character.transform.rotation);
+        }
         if (move != 0) animator.SetBool("isRunning", true);
         else animator.SetBool("isRunning", false);
     }
 
     private void Jump()
     {
-        // float jump = playerInput.actions.FindAction("Jump").ReadValue<float>();
-        // if (jump <= 0) return;
-        bool jump = Input.GetKey(KeyCode.Space);
-        if(!jump) return;
+        float jump = playerInput.actions.FindAction("Jump").ReadValue<float>();
+        if (jump <= 0) return;
         if (touchBottom) animator.SetBool("isJumping", false);
         if (!touchBottom) return;
         rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, 1 * jumpingHeight);
@@ -129,7 +141,7 @@ public class PlayerBase : PlayerAbilities
         LoadRigitBody2D();
         LoadCamera();
         LoadColliders();
-        // LoadInputActions();
+        LoadInputActions();
         LoadCanvas();
         isReady = true;
     }
@@ -186,14 +198,14 @@ public class PlayerBase : PlayerAbilities
         camera = UtilCamera.CreateCamera(playerObject);
     }
 
-    // private void LoadInputActions()
-    // {
-    //     playerInput = playerObject.AddComponent<PlayerInput>();
-    //     playerInput.defaultActionMap = "Game";
-    //     InputMaster iputMaster = new InputMaster();
-    //     playerInput.actions = iputMaster.asset;
-    //     playerInput.ActivateInput();
-    // }
+    private void LoadInputActions()
+    {
+        playerInput = playerObject.AddComponent<PlayerInput>();
+        playerInput.defaultActionMap = "Game";
+        InputMaster iputMaster = new InputMaster();
+        playerInput.actions = iputMaster.asset;
+        playerInput.ActivateInput();
+    }
 
     private void LoadColliders()
     {

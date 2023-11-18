@@ -78,12 +78,6 @@ public class TrapBase : TrapAbilities
     #endregion
 
     #region  <<< Helpers >>>
-
-    private void ToggleSwitch(bool isReady)
-    {
-        Debug.Log(isReady);
-    }
-
     private void HandleColliderAreaEnter(GameObject gameObject, Collider2D collider)
     {
         if (collider.gameObject.name != "Hitbox") return;
