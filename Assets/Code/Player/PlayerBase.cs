@@ -10,7 +10,7 @@ public class PlayerBase : PlayerAbilities
     bool touchRight = false;
     bool isReady = false;
     bool isAlive = true;
-    bool faceLeft = true;
+    bool faceLeft = false;
     bool isInteracting = false;
 #nullable enable
     GameObject? focusObject;
@@ -105,15 +105,19 @@ public class PlayerBase : PlayerAbilities
         GameObject character = playerObject.transform.Find("Character").gameObject;
         if (move > 0)
         {
-            Debug.Log("bigger 0");
-            character.transform.rotation = new Quaternion(character.transform.rotation.x, 0, character.transform.rotation.z, character.transform.rotation.w);
+            if (faceLeft)
+            {
+                character.transform.localScale = new Vector3(character.transform.localScale.x * -1, character.transform.localScale.y, character.transform.localScale.z);
+                faceLeft = false;
+            }
         }
         if (move < 0)
         {
-            Debug.Log(character.transform.rotation);
-            // character.transform.rotation = new Quaternion(character.transform.rotation.x, 180, character.transform.rotation.z, character.transform.rotation.w);
-            character.transform.localScale = new Vector3(character.transform.localScale.x * -1, character.transform.localScale.y, character.transform.localScale.z);
-            Debug.Log(character.transform.rotation);
+            if (!faceLeft)
+            {
+                character.transform.localScale = new Vector3(character.transform.localScale.x * -1, character.transform.localScale.y, character.transform.localScale.z);
+                faceLeft = true;
+            }
         }
         if (move != 0) animator.SetBool("isRunning", true);
         else animator.SetBool("isRunning", false);
@@ -155,7 +159,7 @@ public class PlayerBase : PlayerAbilities
         GameObject healthBarBackground = new GameObject("HealthBarBackground");
         healthBarBackground.transform.parent = healthCanvas.transform;
         Image healthBarImageBackground = healthBarBackground.AddComponent<Image>();
-        healthBarImageBackground.color = Color.black;
+        healthBarImageBackground.color = Color.gray;
         RectTransform healthBarRectBackground = healthBarImageBackground.GetComponent<RectTransform>();
         healthBarRectBackground.localPosition = new Vector3(65f, 30f, 0f);
         healthBarRectBackground.sizeDelta = new Vector2(healthBarWidth, 20f);

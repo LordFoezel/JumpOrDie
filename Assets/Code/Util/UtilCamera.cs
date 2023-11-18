@@ -18,7 +18,7 @@ public static class UtilCamera
     public static Camera AddCamera(GameObject cameraObject)
     {
         Camera camera = cameraObject.AddComponent<Camera>();
-        camera.backgroundColor = Color.gray;
+        camera.backgroundColor = Color.black;
         camera.depth = -1;
         camera.orthographic = true;
         camera.nearClipPlane = 0;
