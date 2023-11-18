@@ -24,7 +24,6 @@ public class PotionBase
     {
         levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
         GameObject prefab = Resources.Load<GameObject>(filename);
-        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
         potionObject = levelLoader.PrefabInstantiate(prefab);
         potionObject.transform.position = potionPosition.position;
     }
