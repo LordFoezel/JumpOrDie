@@ -1,16 +1,15 @@
 public static class GameManager
 {
-    public enum GameState { Menu, Running, Pause, Loading };
-    private static GameState actualGameState;
+    private static UtilEnum.GameState actualGameState;
 
     private static int actualGameLevel = 0;
 
-    public static GameState GetActualGameState()
+    public static UtilEnum.GameState GetActualGameState()
     {
         return actualGameState;
     }
 
-    public static void SetActualGameState(GameState newGameState)
+    public static void SetActualGameState(UtilEnum.GameState newGameState)
     {
         actualGameState = newGameState;
     }

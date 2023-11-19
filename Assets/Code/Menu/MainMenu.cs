@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
     UtilLevelLoader levelLoader;
     GameObject mainMenuPanel;
     GameObject levelMenuPanel;
+    Button loadGameButton;
     int maxLevel = 1;
     public Dictionary<int, Button> buttons;
 
@@ -21,6 +22,9 @@ public class MainMenu : MonoBehaviour
         InitButtons();
         mainMenuPanel.SetActive(true);
         levelMenuPanel.SetActive(false);
+        loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
+        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        if(savedData.isIngame == 0) loadGameButton.interactable = false;
     }
 
     private void InitButtons()
@@ -41,10 +45,18 @@ public class MainMenu : MonoBehaviour
         UtilSaveManager.LevelData saveData = new()
         {
             maxLevel = 1,
-            actualLevel = 1,
+            actualLevel = 0,
+            health = 0,
+            coins = 0,
+            isIngame = 0,
         };
         UtilSaveManager.SaveLevelData(saveData);
         levelLoader.LoadLevel("Level01");
+    }
+
+    public void LoadGame()
+    {
+        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
     }
 
     public void Exit()

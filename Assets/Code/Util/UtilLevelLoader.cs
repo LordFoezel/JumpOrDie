@@ -19,7 +19,7 @@ public class UtilLevelLoader : MonoBehaviour
     public void LoadLevel(string level)
     {
         
-        GameManager.SetActualGameState(GameManager.GameState.Loading);
+        GameManager.SetActualGameState(UtilEnum.GameState.Loading);
         loadingScreen.SetActive(true);
         if (isLoading) return;
         isLoading = true;

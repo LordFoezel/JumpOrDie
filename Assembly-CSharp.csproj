@@ -68,6 +68,7 @@
      <Compile Include="Assets\Code\Item\Coin\CoinBase.cs" />
      <Compile Include="Assets\Code\Item\Coin\CoinManager.cs" />
      <Compile Include="Assets\Code\Inventar\InventoryBase.cs" />
+     <Compile Include="Assets\Code\Util\UtilEnum.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.1f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

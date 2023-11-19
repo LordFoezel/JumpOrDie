@@ -52,6 +52,11 @@ public class PlayerBase : PlayerAbilities
         healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
     }
 
+    public int GetHealth()
+    {
+        return hitPoints;
+    }
+
     #endregion
 
     #region <<< PlayerController >>>
@@ -90,7 +95,7 @@ public class PlayerBase : PlayerAbilities
     private void PlayerDie()
     {
         animator.SetTrigger("die");
-        this.isAlive = false;
+        isAlive = false;
         Debug.Log("Bevore");
         UtilWait.WaitSeconds(10);
         Debug.Log("after");
