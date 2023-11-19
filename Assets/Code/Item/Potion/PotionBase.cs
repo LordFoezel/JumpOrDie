@@ -30,8 +30,8 @@ public class PotionBase
 
     private void LoadColliders()
     {
-        GameObject triggerCollider = AddBoxCollider("TriggerCollider", new Vector2(0f, 0f), new Vector2(1f, 1f));
-        UtilColliderEvents triggerPotionCollider = triggerCollider.AddComponent<UtilColliderEvents>();
+        BoxCollider2D boxCollider = potionObject.GetComponent<BoxCollider2D>();
+        UtilColliderEvents triggerPotionCollider = potionObject.AddComponent<UtilColliderEvents>();
         triggerPotionCollider.OnColliderEnterEvent += HandleColliderTriggerEnter;
     }
 
@@ -39,16 +39,5 @@ public class PotionBase
     {
         UsePotion(collider);
         used = true;
-    }
-
-    GameObject AddBoxCollider(string name, Vector2 offset, Vector2 size)
-    {
-        GameObject colliderObject = new GameObject(name);
-        colliderObject.transform.parent = potionObject.transform;
-        colliderObject.transform.localPosition = offset;
-        BoxCollider2D boxCollider = colliderObject.AddComponent<BoxCollider2D>();
-        boxCollider.size = size;
-        boxCollider.isTrigger = true;
-        return colliderObject;
     }
 }

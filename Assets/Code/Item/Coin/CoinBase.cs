@@ -41,11 +41,6 @@ public class CoinBase
         triggerCoinCollider.OnColliderEnterEvent += HandleColliderTriggerEnter;
     }
 
-    public void COllectCoin(Collider2D collider)
-    {
-
-    }
-
     private void HandleColliderTriggerEnter(GameObject gameObject, Collider2D collider)
     {
         Collect(collider);
