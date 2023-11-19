@@ -52,11 +52,6 @@ public class PlayerBase : PlayerAbilities
         healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
     }
 
-    public int GetHealth()
-    {
-        return hitPoints;
-    }
-
     #endregion
 
     #region <<< PlayerController >>>
@@ -300,4 +295,21 @@ public class PlayerBase : PlayerAbilities
     }
 
     #endregion
+
+    #region  <<< Public getters >>>
+
+    public int GetHealth()
+    {
+        return hitPoints;
+    }
+
+    public Vector2 GetPosition()
+    {
+        float x = playerObject.transform.position.x;
+        float y = playerObject.transform.position.y;
+        return new Vector2(x, y);
+    }
+
+    #endregion
+
 }

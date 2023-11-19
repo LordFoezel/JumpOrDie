@@ -46,6 +46,7 @@
      <Compile Include="Assets\Code\Util\UtilSaveManager.cs" />
      <Compile Include="Assets\Code\Item\Potion\Healing\PotionHealing.cs" />
      <Compile Include="Assets\Code\Player\PlayerBase.cs" />
+     <Compile Include="Assets\Code\Util\UtilEnum.cs" />
      <Compile Include="Assets\Code\Menu\PauseMenu.cs" />
      <Compile Include="Assets\Code\Util\UtilWait.cs" />
      <Compile Include="Assets\Code\Player\PlayerState.cs" />
@@ -54,6 +55,7 @@
      <Compile Include="Assets\Code\Menu\MainMenuLoader.cs" />
      <Compile Include="Assets\PlayerInput\InputMaster.cs" />
      <Compile Include="Assets\Code\Item\Potion\PotionBase.cs" />
+     <Compile Include="Assets\Code\Inventar\InventoryBase.cs" />
      <Compile Include="Assets\Code\Level\LevelBaseLoader.cs" />
      <Compile Include="Assets\Code\Player\Players\Player.cs" />
      <Compile Include="Assets\Code\Level\LevelTwo.cs" />
@@ -63,12 +65,11 @@
      <Compile Include="Assets\Code\Util\UtilColliderEvents.cs" />
      <Compile Include="Assets\Code\Landscape\LandscapeBasic.cs" />
      <Compile Include="Assets\Code\Trap\TrapBase.cs" />
+     <Compile Include="Assets\Code\Item\Coin\CoinManager.cs" />
      <Compile Include="Assets\Code\Util\UtilLevelLoader.cs" />
      <Compile Include="Assets\Code\GameManager.cs" />
      <Compile Include="Assets\Code\Item\Coin\CoinBase.cs" />
-     <Compile Include="Assets\Code\Item\Coin\CoinManager.cs" />
-     <Compile Include="Assets\Code\Inventar\InventoryBase.cs" />
-     <Compile Include="Assets\Code\Util\UtilEnum.cs" />
+     <Compile Include="Assets\Code\Util\Mapper\MapperLevel.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.1f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

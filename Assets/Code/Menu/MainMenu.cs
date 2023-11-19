@@ -24,7 +24,8 @@ public class MainMenu : MonoBehaviour
         levelMenuPanel.SetActive(false);
         loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
-        if(savedData.isIngame == 0) loadGameButton.interactable = false;
+        if (savedData.isIngame == 0) loadGameButton.interactable = false;
+        else loadGameButton.interactable = true;
     }
 
     private void InitButtons()
@@ -57,6 +58,7 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
     public void Exit()

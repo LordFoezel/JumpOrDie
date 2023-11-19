@@ -13,6 +13,8 @@ public static class UtilSaveManager
         public int coins;
         public int health;
         public int isIngame;
+        public float positionX;
+        public float positionY;
     }
 
     public static void SaveLevelData(LevelData levelData)
@@ -39,16 +41,20 @@ public static class UtilSaveManager
             actualLevel = actualGameLevel,
             health = savedData.health,
             coins = savedData.coins,
-            isIngame = 0,
+            positionX = savedData.positionX,
+            positionY = savedData.positionY,
+            isIngame = savedData.isIngame,
         };
         SaveLevelData(newData);
     }
 
-       public static void SaveCurrentGame(int health, int coins)
+       public static void SaveCurrentGame(int health, int coins, Vector2 position)
     {
         int actualGameLevel = GameManager.GetActualGameLevel();
         LevelData savedData = LoadLevelData();
         int maxGameLevel = savedData.maxLevel;
+        float x = position.x;
+        float y = position.y;
         LevelData newData = new()
         {
             maxLevel = maxGameLevel,
@@ -56,6 +62,8 @@ public static class UtilSaveManager
             health = health,
             coins = coins,
             isIngame = 1,
+            positionX = x,
+            positionY = y,
         };
         SaveLevelData(newData);
     }
