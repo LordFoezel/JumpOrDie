@@ -23,6 +23,7 @@ public class PlayerBase : PlayerAbilities
     RectTransform healthBarRect;
     Animator animator;
     public LevelBaseLoader levelLoader;
+    public InventoryBase inventory;
 
     public void Tick()
     {
@@ -139,7 +140,7 @@ public class PlayerBase : PlayerAbilities
 
     #region <<< Loaders >>>
 
-    public void InitPlayer()
+    public void InitPlayer(int coins = 0, bool canCollectCoins = true)
     {
         LoadPlayer();
         LoadRigitBody2D();
@@ -147,7 +148,18 @@ public class PlayerBase : PlayerAbilities
         LoadColliders();
         LoadInputActions();
         LoadCanvas();
+        LoadInventory(coins, canCollectCoins);
         isReady = true;
+    }
+
+    private void LoadInventory(int coins, bool canCollectCoins)
+    {
+        inventory = new InventoryBase(coins, canCollectCoins);
+    }
+
+    public InventoryBase GetInventory()
+    {
+        return inventory;
     }
 
     private void LoadCanvas()

@@ -5,6 +5,7 @@ public class LevelBaseLoader : MonoBehaviour
     public PlayerManager playerManager;
     public TrapManager trapManager;
     public PotionManager potionManager;
+    public CoinManager coinManager;
     private bool isPaused = false;
     private GameObject pauseObject;
     public int gameLevel;
@@ -27,6 +28,7 @@ public class LevelBaseLoader : MonoBehaviour
         playerManager = new PlayerManager();
         trapManager = new TrapManager();
         potionManager = new PotionManager();
+        coinManager = new CoinManager();
         LoadPauseObject();
         GameManager.SetActualGameState(GameManager.GameState.Running);
     }
@@ -48,6 +50,7 @@ public class LevelBaseLoader : MonoBehaviour
             playerManager.Tick();
             trapManager.Tick();
             potionManager.Tick();
+            coinManager.Tick();
         }
         else if (GameManager.GetActualGameState() == GameManager.GameState.Pause)
         {
