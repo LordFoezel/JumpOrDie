@@ -32,28 +32,6 @@ public class PlayerBase : PlayerAbilities
         ControlePlayer();
     }
 
-    #region <<< Health >>>
-
-    public void getDamage(int damage)
-    {
-        if ((hitPoints - damage) <= 0)
-        {
-            PlayerDie();
-            hitPoints = 0;
-        }
-        else hitPoints -= damage;
-        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
-    }
-
-    public void getHealing(int healing)
-    {
-        if ((hitPoints + healing) >= hitPointsMax) hitPoints = hitPointsMax;
-        else hitPoints += healing;
-        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
-    }
-
-    #endregion
-
     #region <<< PlayerController >>>
 
     private void ControlePlayer()
@@ -308,6 +286,24 @@ public class PlayerBase : PlayerAbilities
         float x = playerObject.transform.position.x;
         float y = playerObject.transform.position.y;
         return new Vector2(x, y);
+    }
+
+   public void TakeDamage(int damage)
+    {
+        if ((hitPoints - damage) <= 0)
+        {
+            PlayerDie();
+            hitPoints = 0;
+        }
+        else hitPoints -= damage;
+        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
+    }
+
+    public void TakeHealing(int healing)
+    {
+        if ((hitPoints + healing) >= hitPointsMax) hitPoints = hitPointsMax;
+        else hitPoints += healing;
+        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
     }
 
     #endregion

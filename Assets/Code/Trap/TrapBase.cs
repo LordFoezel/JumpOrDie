@@ -22,7 +22,7 @@ public class TrapBase : TrapAbilities
     {
         if (makeDamage && isActive && (lastDamage + 1f) <= Time.time)
         {
-            levelLoader.playerManager.players[targetId].getDamage(damage);
+            levelLoader.playerManager.players[targetId].TakeDamage(damage);
             lastDamage = Time.time;
         }
     }
