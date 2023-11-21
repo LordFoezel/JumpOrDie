@@ -1,2 +1,7 @@
 Beschreibung der Reienfolge der Einzelnen UI Elementen
-
+0-100 Background
+300-400 Middleground
+500-600 Player
+700-800 Foreground
+900 System UI
+1000 Menu
