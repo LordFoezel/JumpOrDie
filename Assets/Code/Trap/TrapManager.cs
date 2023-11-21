@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapManager
+public class TrapManager : ITickable
 {
     public Dictionary<int, TrapBase> traps;
 
@@ -21,7 +21,7 @@ public class TrapManager
         }
     }
 
-    public void Tick()
+    public override void Tick()
     {
         foreach (KeyValuePair<int, TrapBase> trap in traps)
         {

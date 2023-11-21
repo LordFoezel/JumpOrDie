@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 public class LevelBaseLoader : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class LevelBaseLoader : MonoBehaviour
     private bool isPaused = false;
     private GameObject pauseObject;
     public int gameLevel;
+    public event Action OnTickEvent;
 
     void Awake()
     {
@@ -29,6 +31,10 @@ public class LevelBaseLoader : MonoBehaviour
         trapManager = new TrapManager();
         potionManager = new PotionManager();
         coinManager = new CoinManager();
+        playerManager.SetTickEvent(this);
+        trapManager.SetTickEvent(this);
+        potionManager.SetTickEvent(this);
+        coinManager.SetTickEvent(this);
         LoadPauseObject();
         GameManager.SetActualGameState(UtilEnum.GameState.Running);
     }
@@ -47,10 +53,7 @@ public class LevelBaseLoader : MonoBehaviour
                 pauseObject.SetActive(false);
                 isPaused = false;
             }
-            playerManager.Tick();
-            trapManager.Tick();
-            potionManager.Tick();
-            coinManager.Tick();
+            OnTickEvent.Invoke();
         }
         else if (GameManager.GetActualGameState() == UtilEnum.GameState.Pause)
         {

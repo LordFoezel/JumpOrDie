@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager
+public class PlayerManager : ITickable
 {
     public Dictionary<int, PlayerBase> players;
 
@@ -17,9 +17,10 @@ public class PlayerManager
             PlayerBase newPlayer = new Player(i);
             players.Add(i, newPlayer);
         }
+
     }
 
-    public void Tick()
+    public override void Tick()
     {
         foreach (KeyValuePair<int, PlayerBase> player in players)
         {

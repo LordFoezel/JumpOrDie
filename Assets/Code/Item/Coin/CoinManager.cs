@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinManager
+public class CoinManager : ITickable
 {
     public Dictionary<int, CoinBase> coins;
 
@@ -15,7 +15,7 @@ public class CoinManager
             CoinBase newCoin = new CoinBase(index, spawnPoint.transform);
             coins.Add(index, newCoin);
             index += 1;
-        }
+        }        
     }
 
     public void RemoveCoin(int id)
@@ -23,7 +23,7 @@ public class CoinManager
         coins.Remove(id);
     }
 
-    public void Tick()
+    public override void Tick()
     {
     }
 }

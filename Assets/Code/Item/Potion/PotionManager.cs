@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PotionManager
+public class PotionManager : ITickable
 {
     public Dictionary<int, PotionBase> potions;
 
@@ -23,7 +23,7 @@ public class PotionManager
         potions.Remove(id);
     }
 
-    public void Tick()
+    public override void Tick()
     {
     }
 }
