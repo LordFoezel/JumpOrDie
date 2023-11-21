@@ -6,6 +6,6 @@ public class ITickable
 
     public void SetTickEvent(LevelBaseLoader levelBaseLoader)
     {
-        levelBaseLoader.OnTickEvent += Tick;
+        levelBaseLoader.OnUpdateEvent += Tick;
     }
 }

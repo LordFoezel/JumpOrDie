@@ -10,7 +10,7 @@ public class LevelBaseLoader : MonoBehaviour
     private bool isPaused = false;
     private GameObject pauseObject;
     public int gameLevel;
-    public event Action OnTickEvent;
+    public event Action OnUpdateEvent;
 
     void Awake()
     {
@@ -53,7 +53,7 @@ public class LevelBaseLoader : MonoBehaviour
                 pauseObject.SetActive(false);
                 isPaused = false;
             }
-            OnTickEvent.Invoke();
+            OnUpdateEvent.Invoke();
         }
         else if (GameManager.GetActualGameState() == UtilEnum.GameState.Pause)
         {

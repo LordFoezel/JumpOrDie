@@ -9,10 +9,20 @@ Es gibt Fallen und Knöpfe um diese zu entschärfen
 
 Step 1
 Speichern und laden
+Level 2 und 3
+Bei schaden animation abschpielen mit blut
 
 Step 2
 Player kann Schaden machen
 Feinde die Schaden machen
 
+Step 3
+Animationen für Träke und Coins
+
+Step 4
+Sounds
+Schöneres Menu etc
+
 Aktuelle Pendenzen
-Tick als event
+Tick als event bei Player?
+Speichern und laden
