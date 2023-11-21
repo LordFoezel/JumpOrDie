@@ -53,7 +53,7 @@ public class LevelBaseLoader : MonoBehaviour
                 pauseObject.SetActive(false);
                 isPaused = false;
             }
-            // OnTickEvent.Invoke();
+            OnTickEvent.Invoke();
         }
         else if (GameManager.GetActualGameState() == UtilEnum.GameState.Pause)
         {
