@@ -7,7 +7,13 @@ public class LevelExit : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.gameObject.tag != "Player") return;
-        UtilLevelLoader levelLoader = gameObject.AddComponent<UtilLevelLoader>();
-        levelLoader.LoadLevel(nextLevelName);
+        LevelBaseLoader levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        PlayerBase player = levelLoader.playerManager.player;
+
+        UtilSaveManager.SaveCurrentGame(player.GetHitPoints(),  player.GetInventory().GetCoins(), new Vector2());
+        UtilSaveManager.SaveTotalCoins();
+
+        UtilLevelLoader utilLevelLoader = gameObject.AddComponent<UtilLevelLoader>();
+        utilLevelLoader.LoadLevel(nextLevelName);
     }
 }

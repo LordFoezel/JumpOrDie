@@ -48,7 +48,8 @@ public class MainMenu : MonoBehaviour
             maxLevel = 1,
             actualLevel = 0,
             health = 0,
-            coins = 0,
+            totalCoins = 0,
+            levelCoins = 0,
             isIngame = 0,
         };
         UtilSaveManager.SaveLevelData(saveData);

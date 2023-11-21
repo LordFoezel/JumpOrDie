@@ -4,6 +4,8 @@ public class PlayerAbilities
     public string filename;
     public int jumpingHeight;
     public int moveSpeed;
-    public int hitPoints;
+    private int hitPoints;
     public int hitPointsMax;
+
+    public int HitPoints { get => hitPoints; set => hitPoints = value; }
 }

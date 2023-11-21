@@ -3,10 +3,8 @@ public class InventoryBase
     int coins;
     public bool canCollectCoins;
 
-    public InventoryBase(int coins, bool canCollectCoins)
+    public InventoryBase()
     {
-        SetCoins(coins);
-        this.canCollectCoins = canCollectCoins;
     }
 
     public void SetCoins(int count = 0)

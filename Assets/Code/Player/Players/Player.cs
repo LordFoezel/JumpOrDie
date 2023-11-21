@@ -6,8 +6,8 @@ public class Player : PlayerBase
         filename = "Prefaps/Player/PlayerWizard";
         jumpingHeight = 20;
         moveSpeed = 10;
-        hitPoints = 3;
-        hitPointsMax = 3;
+        HitPoints = 5;
+        hitPointsMax = 5;
         InitPlayer();
     }
 }

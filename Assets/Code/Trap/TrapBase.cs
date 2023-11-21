@@ -14,7 +14,6 @@ public class TrapBase : TrapAbilities
     public bool isReady = true;
     bool makeDamage = false;
     float lastDamage = 0f;
-    int targetId = 0;
     LevelBaseLoader levelLoader;
     Animator animator;
 
@@ -22,7 +21,7 @@ public class TrapBase : TrapAbilities
     {
         if (makeDamage && isActive && (lastDamage + 1f) <= Time.time)
         {
-            levelLoader.playerManager.players[targetId].TakeDamage(damage);
+            levelLoader.playerManager.player.TakeDamage(damage);
             lastDamage = Time.time;
         }
     }
@@ -81,7 +80,6 @@ public class TrapBase : TrapAbilities
     private void HandleColliderAreaEnter(GameObject gameObject, Collider2D collider)
     {
         if (collider.gameObject.name != "Hitbox") return;
-        targetId = collider.gameObject.GetComponentInParent<PlayerState>().id;
     }
 
     private void HandleColliderAreaStay(GameObject gameObject, Collider2D collider)

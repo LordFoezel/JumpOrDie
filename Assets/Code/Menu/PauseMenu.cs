@@ -24,10 +24,11 @@ public class PauseMenu : MonoBehaviour
     public void Save()
     {
         LevelBaseLoader levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
-        PlayerBase player = levelLoader.playerManager.players[1];
+        PlayerBase player = levelLoader.playerManager.player;
         int coins = player.GetInventory().GetCoins();
-        int health = player.GetHealth();
+        int health = player.GetHitPoints();
         Vector2 position = player.GetPosition();
+        Debug.Log("Save: "+health+" Coins: "+coins+ " Position: " + position.x+"/"+position.y);
         UtilSaveManager.SaveCurrentGame(health, coins, position);
         loadGameButton.interactable = true;
     }

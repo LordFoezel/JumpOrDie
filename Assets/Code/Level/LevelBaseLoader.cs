@@ -26,7 +26,6 @@ public class LevelBaseLoader : MonoBehaviour
     public virtual void InitLevel()
     {
         GameManager.SetActualGameLevel(gameLevel);
-        SaveLevel();
         playerManager = new PlayerManager();
         trapManager = new TrapManager();
         potionManager = new PotionManager();
@@ -36,9 +35,17 @@ public class LevelBaseLoader : MonoBehaviour
         potionManager.SetTickEvent(this);
         coinManager.SetTickEvent(this);
         LoadPauseObject();
+        SaveLevel();
+        InitPlayerData();
         GameManager.SetActualGameState(UtilEnum.GameState.Running);
     }
 
+    void InitPlayerData()
+    {
+        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        playerManager.player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
+
+    }
     private void SaveLevel()
     {
         UtilSaveManager.SaveCurrentLevel();

@@ -52,8 +52,7 @@ public class CoinBase
         if (used) return; 
         GameObject.Destroy(coinObject);
         levelLoader.coinManager.RemoveCoin(id);
-        int targetId = collider.gameObject.GetComponentInParent<PlayerState>().id;
-        InventoryBase inventory = levelLoader.playerManager.players[targetId].GetInventory();
+        InventoryBase inventory = levelLoader.playerManager.player.GetInventory();
         inventory.AddCoins(1);
 
     }

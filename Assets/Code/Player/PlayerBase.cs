@@ -23,7 +23,9 @@ public class PlayerBase : PlayerAbilities
     RectTransform healthBarRect;
     Animator animator;
     public LevelBaseLoader levelLoader;
-    public InventoryBase inventory;
+    private InventoryBase inventory;
+
+    public InventoryBase Inventory { get => inventory; set => inventory = value; }
 
     public void Tick()
     {
@@ -118,7 +120,7 @@ public class PlayerBase : PlayerAbilities
 
     #region <<< Loaders >>>
 
-    public void InitPlayer(int coins = 0, bool canCollectCoins = true)
+    public void InitPlayer()
     {
         LoadPlayer();
         LoadRigitBody2D();
@@ -126,18 +128,13 @@ public class PlayerBase : PlayerAbilities
         LoadColliders();
         LoadInputActions();
         LoadCanvas();
-        LoadInventory(coins, canCollectCoins);
+        LoadInventory();
         isReady = true;
     }
 
-    private void LoadInventory(int coins, bool canCollectCoins)
+    private void LoadInventory()
     {
-        inventory = new InventoryBase(coins, canCollectCoins);
-    }
-
-    public InventoryBase GetInventory()
-    {
-        return inventory;
+        Inventory = new InventoryBase();
     }
 
     private void LoadCanvas()
@@ -163,7 +160,7 @@ public class PlayerBase : PlayerAbilities
         healthBarImage.color = Color.red;
         healthBarRect = healthBarImage.GetComponent<RectTransform>();
         healthBarRect.localPosition = new Vector3(65f, 30f, 0f);
-        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
+        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(HitPoints, hitPointsMax, healthBarWidth), 20f);
         healthBarRect.anchorMin = new Vector2(0f, 0f);
         healthBarRect.anchorMax = new Vector2(0f, 0f);
         healthBarRect.pivot = new Vector2(0f, 0f);
@@ -276,9 +273,14 @@ public class PlayerBase : PlayerAbilities
 
     #region  <<< Public getters >>>
 
-    public int GetHealth()
+    public InventoryBase GetInventory()
     {
-        return hitPoints;
+        return Inventory;
+    }
+
+    public int GetHitPoints()
+    {
+        return HitPoints;
     }
 
     public Vector2 GetPosition()
@@ -288,22 +290,46 @@ public class PlayerBase : PlayerAbilities
         return new Vector2(x, y);
     }
 
-   public void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
-        if ((hitPoints - damage) <= 0)
+        if ((HitPoints - damage) <= 0)
         {
             PlayerDie();
-            hitPoints = 0;
+            HitPoints = 0;
         }
-        else hitPoints -= damage;
-        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
+        else HitPoints -= damage;
+        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(HitPoints, hitPointsMax, healthBarWidth), 20f);
     }
 
     public void TakeHealing(int healing)
     {
-        if ((hitPoints + healing) >= hitPointsMax) hitPoints = hitPointsMax;
-        else hitPoints += healing;
-        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(hitPoints, hitPointsMax, healthBarWidth), 20f);
+        if ((HitPoints + healing) >= hitPointsMax) HitPoints = hitPointsMax;
+        else HitPoints += healing;
+        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(HitPoints, hitPointsMax, healthBarWidth), 20f);
+    }
+
+    #endregion
+
+    #region  <<< Public setter >>>
+
+    public void SetPosition(Vector2 position)
+    {
+        playerObject.transform.position = position;
+    }
+
+    public void SetHitPoints(int hitPoints)
+    {
+        this.HitPoints = hitPoints;
+    }
+
+    public void SetPlayerData(int health, int coins, Vector2 position)
+    {
+        if (position.x == 0 && position.y == 0) return;
+        HitPoints = health;
+        healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(health, hitPointsMax, healthBarWidth), 20f);
+
+        SetPosition(position);
+        Inventory.SetCoins(coins);
     }
 
     #endregion
