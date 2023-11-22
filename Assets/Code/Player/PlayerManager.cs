@@ -5,8 +5,6 @@ public class PlayerManager : ITickable
 {
     public PlayerBase player;
 
-    readonly int playerCount = 1;
-
     public PlayerManager()
     {
         player = new Player(1);

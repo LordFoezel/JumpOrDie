@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CoinBase
@@ -51,7 +49,7 @@ public class CoinBase
     {
         if (used) return; 
         GameObject.Destroy(coinObject);
-        levelLoader.coinManager.RemoveCoin(id);
+        GameManager.Coins.Remove(id);
         InventoryBase inventory = levelLoader.playerManager.player.GetInventory();
         inventory.AddCoins(1);
 

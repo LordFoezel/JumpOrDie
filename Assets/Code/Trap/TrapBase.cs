@@ -1,10 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapBase : TrapAbilities
+public class TrapBase
 {
-    public GameObject trapPosition;
+    public int id;
+    public string name;
+    public int damage;
+    public string filename;    public GameObject trapPosition;
 #nullable enable
     public GameObject? switchPosition;
 #nullable disable
