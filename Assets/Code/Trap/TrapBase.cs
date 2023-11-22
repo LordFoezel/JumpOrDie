@@ -22,7 +22,7 @@ public class TrapBase
     {
         if (makeDamage && isActive && (lastDamage + 1f) <= Time.time)
         {
-            levelLoader.playerManager.player.TakeDamage(damage);
+            GameManager.Player.TakeDamage(damage);
             lastDamage = Time.time;
         }
     }
@@ -54,7 +54,7 @@ public class TrapBase
             trapSwitch.SetActive(isReady);
             trapSwitch.SetTrap(this);
         }
-        else levelLoader.GameObjectDestroy(switchObject);
+        else GameObject.Destroy(switchObject);
         animator = trapObject.GetComponent<Animator>();
         animator.SetBool("isActive", false);
     }

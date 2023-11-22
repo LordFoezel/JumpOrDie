@@ -39,7 +39,6 @@
      <Compile Include="Assets\Code\Trap\TrapManager.cs" />
      <Compile Include="Assets\Code\Item\Potion\PotionManager.cs" />
      <Compile Include="Assets\Code\Util\Mapper\MapperLevel.cs" />
-     <Compile Include="Assets\Code\Player\PlayerAbilities.cs" />
      <Compile Include="Assets\Code\System\LevelExit.cs" />
      <Compile Include="Assets\Code\Interface\ITickable.cs" />
      <Compile Include="Assets\Code\Trap\TrapSwitch.cs" />
@@ -70,6 +69,7 @@
      <Compile Include="Assets\Code\Util\UtilLevelLoader.cs" />
      <Compile Include="Assets\Code\GameManager.cs" />
      <Compile Include="Assets\Code\Item\Coin\CoinBase.cs" />
+     <Compile Include="Assets\Code\Level\LevelZero.cs" />
      <None Include="Assets\ReadMe.txt" />
      <None Include="Assets\LayerDoku.txt" />
      <None Include="Assets\Pendenzen.txt" />

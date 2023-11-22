@@ -50,7 +50,7 @@ public class CoinBase
         if (used) return; 
         GameObject.Destroy(coinObject);
         GameManager.Coins.Remove(id);
-        InventoryBase inventory = levelLoader.playerManager.player.GetInventory();
+        InventoryBase inventory = GameManager.Player.Inventory;
         inventory.AddCoins(1);
 
     }

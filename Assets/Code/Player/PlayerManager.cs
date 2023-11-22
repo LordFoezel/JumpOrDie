@@ -1,22 +1,24 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerManager : ITickable
+public class PlayerManager
 {
-    public PlayerBase player;
-
     public PlayerManager()
     {
-        player = new Player(1);
+        AddPlayer();
     }
 
-    public override void Tick()
+    public void AddPlayer(int id = 0)
     {
-            player.Tick();
+        GameManager.Player = new Player(id);
+        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        if(savedData.positionX == 0 && savedData.positionY == 0) return;
+        GameManager.Player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
+
     }
 
-    public PlayerBase GetPlayer()
+    public void RemovePlayer(int id)
     {
-        return player;
+        GameManager.Player.RemovePlayer();
+        GameManager.Player = null;
     }
 }

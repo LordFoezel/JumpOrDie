@@ -2,9 +2,16 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using System;
 
-public class PlayerBase : PlayerAbilities
+public class PlayerBase : ITickable
 {
+    public int id;
+    public string filename;
+    public int jumpingHeight;
+    public int moveSpeed;
+    private int hitPoints;
+    public int hitPointsMax;
     bool touchBottom = false;
     bool touchLeft = false;
     bool touchRight = false;
@@ -18,16 +25,16 @@ public class PlayerBase : PlayerAbilities
     readonly float healthBarWidth = 200f;
     GameObject playerObject;
     Rigidbody2D rigidbody2D;
-    GameObject camera;
     PlayerInput playerInput;
     RectTransform healthBarRect;
     Animator animator;
-    public LevelBaseLoader levelLoader;
+    LevelBaseLoader levelLoader;
     private InventoryBase inventory;
 
     public InventoryBase Inventory { get => inventory; set => inventory = value; }
+    public int HitPoints { get => hitPoints; set => hitPoints = value; }
 
-    public void Tick()
+    public override void Tick()
     {
         PauseGame();
         if (!isReady) return;
@@ -170,6 +177,7 @@ public class PlayerBase : PlayerAbilities
     {
         GameObject prefab = Resources.Load<GameObject>(filename);
         levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        SetTickEvent(levelLoader);
         playerObject = levelLoader.PrefabInstantiate(prefab);
         playerObject.AddComponent<PlayerState>().SetId(id);
         Transform playerStart = GameObject.FindGameObjectWithTag("PlayerStart").transform;
@@ -186,7 +194,7 @@ public class PlayerBase : PlayerAbilities
 
     private void LoadCamera()
     {
-        camera = UtilCamera.CreateCamera(playerObject);
+        UtilCamera.CreateCamera(playerObject);
     }
 
     private void LoadInputActions()
@@ -222,7 +230,7 @@ public class PlayerBase : PlayerAbilities
 
     #endregion
 
-    #region  <<< Helpers >>>
+    #region  <<< Collision >>>
 
     private void HandleCollisionBottom(GameObject gameObject, Collision2D collision)
     {
@@ -271,17 +279,17 @@ public class PlayerBase : PlayerAbilities
 
     #endregion
 
+    #region  <<< Public Functions >>>
+
+    public void RemovePlayer()
+    {
+        GameObject.Destroy(playerObject);
+    }
+
+    #endregion
+
     #region  <<< Public getters >>>
 
-    public InventoryBase GetInventory()
-    {
-        return Inventory;
-    }
-
-    public int GetHitPoints()
-    {
-        return HitPoints;
-    }
 
     public Vector2 GetPosition()
     {

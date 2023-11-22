@@ -17,7 +17,7 @@ public class PotionHealing : PotionBase
         if (used) return;
         GameObject.Destroy(potionObject);
         GameManager.Potions.Remove(id);
-        levelLoader.playerManager.player.TakeHealing(healing);
+        GameManager.Player.TakeHealing(healing);
 
     }
 }

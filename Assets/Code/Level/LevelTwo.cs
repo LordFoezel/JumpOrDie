@@ -2,6 +2,6 @@ public class LevelTwo : LevelBaseLoader
 {
     public override void InitLevelData()
     {
-        gameLevel = 2;
+        GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level02.ToString());
     }
 }

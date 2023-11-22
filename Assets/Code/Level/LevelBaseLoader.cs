@@ -3,37 +3,35 @@ using System;
 
 public class LevelBaseLoader : MonoBehaviour
 {
-    public PlayerManager playerManager;
-    public TrapManager trapManager;
-    public PotionManager potionManager;
-    public CoinManager coinManager;
+    private PlayerManager playerManager;
+    private TrapManager trapManager;
+    private PotionManager potionManager;
+    private CoinManager coinManager;
     private bool isPaused = false;
     private GameObject pauseObject;
-    public int gameLevel;
+    private int gameLevel;
     public event Action OnUpdateEvent;
+    
+    public int GameLevel { get => gameLevel; set => gameLevel = value; }
+    public PlayerManager PlayerManager { get => playerManager; set => playerManager = value; }
+    public TrapManager TrapManager { get => trapManager; set => trapManager = value; }
+    public PotionManager PotionManager { get => potionManager; set => potionManager = value; }
+    public CoinManager CoinManager { get => coinManager; set => coinManager = value; }
 
     void Awake()
     {
-        InitLevelData();
         InitLevel();
     }
 
     public virtual void InitLevelData()
     {
-        gameLevel = 0;
+        GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level01.ToString());
     }
 
     public virtual void InitLevel()
     {
-        GameManager.ActualGameLevel = gameLevel;
-        playerManager = new PlayerManager();
-        trapManager = new TrapManager();
-        potionManager = new PotionManager();
-        coinManager = new CoinManager();
-        playerManager.SetTickEvent(this);
-        trapManager.SetTickEvent(this);
-        potionManager.SetTickEvent(this);
-        coinManager.SetTickEvent(this);
+       
+        GameManager.ActualGameLevel = GameLevel;
         LoadPauseObject();
         SaveLevel();
         InitPlayerData();
@@ -43,7 +41,7 @@ public class LevelBaseLoader : MonoBehaviour
     void InitPlayerData()
     {
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
-        playerManager.player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
+        GameManager.Player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
 
     }
     private void SaveLevel()
@@ -80,11 +78,6 @@ public class LevelBaseLoader : MonoBehaviour
     public GameObject PrefabInstantiate(GameObject prefab)
     {
         return Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
-    }
-
-    public void GameObjectDestroy(GameObject gameObject, int delay = 0)
-    {
-        Destroy(gameObject, delay);
     }
 
     private void LoadPauseObject()
