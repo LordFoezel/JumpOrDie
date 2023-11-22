@@ -4,7 +4,7 @@ public class MainMenuLoader : MonoBehaviour
 {
     void Awake()
     {
-        GameManager.SetActualGameState(UtilEnum.GameState.Menu);
+        GameManager.ActualGameState = UtilEnum.GameState.Menu;
         GameObject mainMenuPrefab = Resources.Load<GameObject>("Prefaps/Menu/MainMenu");
         GameObject mainMenu = Instantiate(mainMenuPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         mainMenu.SetActive(true);

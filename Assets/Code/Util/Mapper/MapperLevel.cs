@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 
 public static class MapperLevel
 {
     static Dictionary<int, string> levels = new Dictionary<int, string>();
-
+    
     static MapperLevel()
     {
         levels.Add(0, "MainMenu");
@@ -13,13 +14,19 @@ public static class MapperLevel
 
     public static string GetLevelName(int id)
     {
-        if (levels.TryGetValue(id, out string levelName))
+        foreach (KeyValuePair<int, string> levelPair in levels)
         {
-            return levelName;
+            if (levelPair.Key == id) return levelPair.Value;
         }
-        else
+        return "MainMenu";
+    }
+
+    public static int GetLevelId(string name)
+    {
+        foreach (KeyValuePair<int, string> levelPair in levels)
         {
-            return "MainMenu";
+            if (levelPair.Value == name) return levelPair.Key;
         }
+        return 0;
     }
 }

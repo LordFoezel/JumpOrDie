@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class TrapManager : ITickable
 {
-    public Dictionary<int, TrapBase> traps;
 
     public TrapManager()
     {
-        traps = new Dictionary<int, TrapBase>();
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpikeTrap");
         int index = 0;
         foreach (GameObject spawnPoint in spawnPoints)
@@ -16,14 +14,14 @@ public class TrapManager : ITickable
             if(!trapPositio) continue;
             GameObject switchPositio = GameObject.Find("SpikeSwitch" + index);
             TrapBase newTrap = new SpikeTrap(index, trapPositio, switchPositio);
-            traps.Add(index, newTrap);
+            GameManager.Traps.Add(index, newTrap);
             index += 1;
         }
     }
 
     public override void Tick()
     {
-        foreach (KeyValuePair<int, TrapBase> trap in traps)
+        foreach (KeyValuePair<int, TrapBase> trap in GameManager.Traps)
         {
             trap.Value.Tick();
         }

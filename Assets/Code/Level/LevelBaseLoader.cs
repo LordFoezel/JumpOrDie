@@ -25,7 +25,7 @@ public class LevelBaseLoader : MonoBehaviour
 
     public virtual void InitLevel()
     {
-        GameManager.SetActualGameLevel(gameLevel);
+        GameManager.ActualGameLevel = gameLevel;
         playerManager = new PlayerManager();
         trapManager = new TrapManager();
         potionManager = new PotionManager();
@@ -37,7 +37,7 @@ public class LevelBaseLoader : MonoBehaviour
         LoadPauseObject();
         SaveLevel();
         InitPlayerData();
-        GameManager.SetActualGameState(UtilEnum.GameState.Running);
+        GameManager.ActualGameState = UtilEnum.GameState.Running;
     }
 
     void InitPlayerData()
@@ -53,7 +53,7 @@ public class LevelBaseLoader : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (GameManager.GetActualGameState() == UtilEnum.GameState.Running)
+        if (GameManager.ActualGameState == UtilEnum.GameState.Running)
         {
             if (isPaused)
             {
@@ -62,7 +62,7 @@ public class LevelBaseLoader : MonoBehaviour
             }
             OnUpdateEvent.Invoke();
         }
-        else if (GameManager.GetActualGameState() == UtilEnum.GameState.Pause)
+        else if (GameManager.ActualGameState == UtilEnum.GameState.Pause)
         {
             if (!isPaused)
             {
@@ -74,7 +74,7 @@ public class LevelBaseLoader : MonoBehaviour
 
     public void PauseGame()
     {
-        GameManager.SetActualGameState(UtilEnum.GameState.Pause);
+        GameManager.ActualGameState = UtilEnum.GameState.Pause;
     }
 
     public GameObject PrefabInstantiate(GameObject prefab)
@@ -89,7 +89,7 @@ public class LevelBaseLoader : MonoBehaviour
 
     private void LoadPauseObject()
     {
-        GameManager.SetActualGameState(UtilEnum.GameState.Menu);
+        GameManager.ActualGameState = UtilEnum.GameState.Menu;
         GameObject pausePrefab = Resources.Load<GameObject>("Prefaps/Menu/Pause");
         pauseObject = Instantiate(pausePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         pauseObject.SetActive(false);

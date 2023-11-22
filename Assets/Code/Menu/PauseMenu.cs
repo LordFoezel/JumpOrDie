@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Continue()
     {
-        GameManager.SetActualGameState(UtilEnum.GameState.Running);
+        GameManager.ActualGameState = UtilEnum.GameState.Running;
     }
 
     public void Save()
