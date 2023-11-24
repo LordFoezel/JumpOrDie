@@ -4,7 +4,7 @@ public class CoinBase
 {
     public int id;
     public string filename;
-    public LevelBaseLoader levelLoader;
+    public LevelLoaderBase levelLoader;
     public GameObject coinObject;
     public Transform spawnPoint;
     public bool used = false;
@@ -25,7 +25,7 @@ public class CoinBase
 
     void LoadCoin()
     {
-        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoaderBase>();
         GameObject prefab = Resources.Load<GameObject>(filename);
         coinObject = levelLoader.PrefabInstantiate(prefab);
         coinObject.transform.position = spawnPoint.position;

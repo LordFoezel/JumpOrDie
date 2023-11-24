@@ -1,29 +1,30 @@
-using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapManager : ITickable
+public class TrapManager
 {
 
     public TrapManager()
+    {
+        AddTraps();
+    }
+
+    public void AddTraps()
     {
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpikeTrap");
         int index = 0;
         foreach (GameObject spawnPoint in spawnPoints)
         {
-            GameObject trapPositio = GameObject.Find("SpikeTrap" + index);
-            if(!trapPositio) continue;
-            GameObject switchPositio = GameObject.Find("SpikeSwitch" + index);
-            TrapBase newTrap = new SpikeTrap(index, trapPositio, switchPositio);
-            GameManager.Traps.Add(index, newTrap);
+            AddTrap(index);
             index += 1;
         }
     }
 
-    public override void Tick()
+    public void AddTrap(int id)
     {
-        foreach (KeyValuePair<int, TrapBase> trap in GameManager.Traps)
-        {
-            trap.Value.Tick();
-        }
+        GameObject trapPositio = GameObject.Find("SpikeTrap" + id);
+        if (!trapPositio) return;
+        GameObject switchPositio = GameObject.Find("SpikeSwitch" + id);
+        TrapBase newTrap = new SpikeTrap(id, trapPositio, switchPositio);
+        GameManager.Traps.Add(id, newTrap);
     }
 }

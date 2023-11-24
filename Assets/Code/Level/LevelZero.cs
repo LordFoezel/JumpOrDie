@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LevelZero : LevelBaseLoader
+public class LevelZero : LevelLoaderBase
 {
     public override void InitLevelData()
     {

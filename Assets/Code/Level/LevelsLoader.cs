@@ -1,83 +1,73 @@
 using UnityEngine;
 using System;
 
-public class LevelBaseLoader : MonoBehaviour
+public class LevelsBase : LevelLoaderBase
 {
     private PlayerManager playerManager;
     private TrapManager trapManager;
     private PotionManager potionManager;
     private CoinManager coinManager;
-    private bool isPaused = false;
     private GameObject pauseObject;
-    private int gameLevel;
     public event Action OnUpdateEvent;
-    
-    public int GameLevel { get => gameLevel; set => gameLevel = value; }
+
     public PlayerManager PlayerManager { get => playerManager; set => playerManager = value; }
     public TrapManager TrapManager { get => trapManager; set => trapManager = value; }
     public PotionManager PotionManager { get => potionManager; set => potionManager = value; }
     public CoinManager CoinManager { get => coinManager; set => coinManager = value; }
 
-    void Awake()
-    {
-        InitLevel();
-    }
-
-    public virtual void InitLevelData()
+    public override void InitLevelData()
     {
         GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level01.ToString());
     }
 
-    public virtual void InitLevel()
+    public override void InitLevel()
     {
-       
-        GameManager.ActualGameLevel = GameLevel;
+        base.InitLevel();
         LoadPauseObject();
-        SaveLevel();
-        InitPlayerData();
         GameManager.ActualGameState = UtilEnum.GameState.Running;
     }
 
-    void InitPlayerData()
+    public override void Tick()
+    {
+        SetTickEvent();
+        if (GameManager.ActualGameState == UtilEnum.GameState.Running)
+        {
+            if (IsPaused)
+            {
+                pauseObject.SetActive(false);
+                IsPaused = false;
+            }
+        }
+        else if (GameManager.ActualGameState == UtilEnum.GameState.Pause)
+        {
+            if (!IsPaused)
+            {
+                pauseObject.SetActive(true);
+                IsPaused = true;
+            }
+        }
+    }
+
+    public void LoadPlayerData()
     {
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
         GameManager.Player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
 
     }
-    private void SaveLevel()
+
+    private void SetTickEvent()
     {
-        UtilSaveManager.SaveCurrentLevel();
+        OnUpdateEvent.Invoke();
     }
 
-    void FixedUpdate()
+    public void SaveLevel()
     {
-        if (GameManager.ActualGameState == UtilEnum.GameState.Running)
-        {
-            if (isPaused)
-            {
-                pauseObject.SetActive(false);
-                isPaused = false;
-            }
-            OnUpdateEvent.Invoke();
-        }
-        else if (GameManager.ActualGameState == UtilEnum.GameState.Pause)
-        {
-            if (!isPaused)
-            {
-                pauseObject.SetActive(true);
-                isPaused = true;
-            }
-        }
+        UtilSaveManager.SaveCurrentLevel();
     }
 
     public void PauseGame()
     {
         GameManager.ActualGameState = UtilEnum.GameState.Pause;
-    }
-
-    public GameObject PrefabInstantiate(GameObject prefab)
-    {
-        return Instantiate(prefab, new Vector3(0, 0, 0), Quaternion.identity);
     }
 
     private void LoadPauseObject()

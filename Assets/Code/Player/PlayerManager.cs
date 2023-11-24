@@ -2,11 +2,6 @@ using UnityEngine;
 
 public class PlayerManager
 {
-    public PlayerManager()
-    {
-        AddPlayer();
-    }
-
     public void AddPlayer(int id = 0)
     {
         GameManager.Player = new Player(id);

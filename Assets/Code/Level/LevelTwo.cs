@@ -1,4 +1,4 @@
-public class LevelTwo : LevelBaseLoader
+public class LevelTwo : LevelsBase
 {
     public override void InitLevelData()
     {

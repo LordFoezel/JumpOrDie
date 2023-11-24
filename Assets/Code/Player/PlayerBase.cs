@@ -28,7 +28,7 @@ public class PlayerBase : ITickable
     PlayerInput playerInput;
     RectTransform healthBarRect;
     Animator animator;
-    LevelBaseLoader levelLoader;
+    LevelsBase levelLoader;
     private InventoryBase inventory;
 
     public InventoryBase Inventory { get => inventory; set => inventory = value; }
@@ -176,7 +176,7 @@ public class PlayerBase : ITickable
     private void LoadPlayer()
     {
         GameObject prefab = Resources.Load<GameObject>(filename);
-        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelsBase>();
         SetTickEvent(levelLoader);
         playerObject = levelLoader.PrefabInstantiate(prefab);
         playerObject.AddComponent<PlayerState>().SetId(id);

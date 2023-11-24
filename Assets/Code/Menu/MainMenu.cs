@@ -17,8 +17,8 @@ public class MainMenu : MonoBehaviour
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
-        UtilSaveManager.LevelData levelSaves = UtilSaveManager.LoadLevelData();
-        maxLevel = levelSaves.maxLevel;
+        UtilSaveManager.LevelData levelsBaseaves = UtilSaveManager.LoadLevelData();
+        maxLevel = levelsBaseaves.maxLevel;
         InitButtons();
         mainMenuPanel.SetActive(true);
         levelMenuPanel.SetActive(false);

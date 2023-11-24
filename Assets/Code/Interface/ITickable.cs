@@ -4,8 +4,8 @@ public class ITickable
     {
     }
 
-    public void SetTickEvent(LevelBaseLoader levelBaseLoader)
+    public void SetTickEvent(LevelsBase levelsbase)
     {
-        levelBaseLoader.OnUpdateEvent += Tick;
+        levelsbase.OnUpdateEvent += Tick;
     }
 }

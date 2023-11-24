@@ -1,11 +1,11 @@
 using UnityEngine;
 
-public class TrapBase
+public class TrapBase : ITickable
 {
     public int id;
     public string name;
     public int damage;
-    public string filename;    public GameObject trapPosition;
+    public string filename; public GameObject trapPosition;
 #nullable enable
     public GameObject? switchPosition;
 #nullable disable
@@ -15,10 +15,10 @@ public class TrapBase
     public bool isReady = true;
     bool makeDamage = false;
     float lastDamage = 0f;
-    LevelBaseLoader levelLoader;
+    LevelsBase levelLoader;
     Animator animator;
 
-    public void Tick()
+    public override void Tick()
     {
         if (makeDamage && isActive && (lastDamage + 1f) <= Time.time)
         {
@@ -42,7 +42,8 @@ public class TrapBase
 
     public void LoadTrap()
     {
-        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelsBase>();
+        SetTickEvent(levelLoader);
         GameObject prefab = Resources.Load<GameObject>(filename);
         trapObject = levelLoader.PrefabInstantiate(prefab);
         trapObject.transform.position = trapPosition.transform.position;

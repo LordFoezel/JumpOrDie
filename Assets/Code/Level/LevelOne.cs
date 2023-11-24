@@ -1,4 +1,6 @@
-public class LevelOne : LevelBaseLoader
+using UnityEngine;
+
+public class LevelOne : LevelsBase
 {
     public override void InitLevelData()
     {
@@ -7,14 +9,15 @@ public class LevelOne : LevelBaseLoader
 
     public override void InitLevel()
     {
-
         PlayerManager = new PlayerManager();
         TrapManager = new TrapManager();
         PotionManager = new PotionManager();
         CoinManager = new CoinManager();
-        TrapManager.SetTickEvent(this);
         PotionManager.SetTickEvent(this);
         CoinManager.SetTickEvent(this);
+        PlayerManager.AddPlayer();
         base.InitLevel();
+
+        SaveLevel();
     }
 }

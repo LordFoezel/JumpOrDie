@@ -7,7 +7,7 @@ public class PotionBase
     public GameObject potionObject;
     public Transform potionPosition;
     public bool used = false;
-    public LevelBaseLoader levelLoader;
+    public LevelLoaderBase levelLoader;
 
     public virtual void UsePotion(Collider2D collider){
 
@@ -22,7 +22,7 @@ public class PotionBase
 
     public void LoadPotion()
     {
-        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelBaseLoader>();
+        levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelLoaderBase>();
         GameObject prefab = Resources.Load<GameObject>(filename);
         potionObject = levelLoader.PrefabInstantiate(prefab);
         potionObject.transform.position = potionPosition.position;
