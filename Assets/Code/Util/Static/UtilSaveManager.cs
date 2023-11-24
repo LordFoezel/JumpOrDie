@@ -1,9 +1,18 @@
 using System.IO;
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class UtilSaveManager
 {
     private static readonly string filePath = Path.Combine(Application.persistentDataPath, "levelData.json");
+
+    [System.Serializable]
+    public class TrapData
+    {
+        public int id;
+        public int isActive;
+    }
+
 
     [System.Serializable]
     public class LevelData
@@ -16,6 +25,8 @@ public static class UtilSaveManager
         public int isIngame;
         public float positionX;
         public float positionY;
+        public List<TrapData> traps;
+        public List<int> coins;
     }
 
     public static void SaveLevelData(LevelData levelData)
@@ -46,6 +57,7 @@ public static class UtilSaveManager
             positionX = savedData.positionX,
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
+            traps = savedData.traps,
         };
         SaveLevelData(newData);
     }
@@ -68,6 +80,7 @@ public static class UtilSaveManager
             isIngame = 1,
             positionX = x,
             positionY = y,
+            traps = SavedTrapData(),
         };
         SaveLevelData(newData);
     }
@@ -86,7 +99,26 @@ public static class UtilSaveManager
             positionX = savedData.positionX,
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
+            traps = savedData.traps,
         };
         SaveLevelData(newData);
+    }
+
+    public static List<int> SavedCoinData()
+    {
+        List<int> savedCoinData = new List<int>();
+        return savedCoinData;
+    }
+
+    public static List<TrapData> SavedTrapData()
+    {
+        List<TrapData> savedTrapData = new List<TrapData>();
+        foreach (KeyValuePair<int, TrapBase> trap in GameManager.Traps)
+        {
+            int isActive = 0;
+            if (trap.Value.IsActive) isActive = 1;
+            savedTrapData.Add(new TrapData() { id = trap.Key, isActive = isActive });
+        }
+        return savedTrapData;
     }
 }

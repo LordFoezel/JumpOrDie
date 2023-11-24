@@ -5,13 +5,14 @@ public class TrapBase : ITickable
     public int id;
     public string name;
     public int damage;
-    public string filename; public GameObject trapPosition;
+    public string filename;
+    public GameObject trapPosition;
 #nullable enable
     public GameObject? switchPosition;
 #nullable disable
     GameObject trapObject;
     GameObject switchObject;
-    bool isActive = false;
+    public bool IsActive { set; get; } = false;
     public bool isReady = true;
     bool makeDamage = false;
     float lastDamage = 0f;
@@ -20,7 +21,7 @@ public class TrapBase : ITickable
 
     public override void Tick()
     {
-        if (makeDamage && isActive && (lastDamage + 1f) <= Time.time)
+        if (makeDamage && IsActive && (lastDamage + 1f) <= Time.time)
         {
             GameManager.Player.TakeDamage(damage);
             lastDamage = Time.time;
@@ -93,7 +94,7 @@ public class TrapBase : ITickable
     private void HandleColliderAreaStay(GameObject gameObject, Collider2D collider)
     {
         if (collider.gameObject.name != "Hitbox") return;
-        if (!isActive) return;
+        if (!IsActive) return;
         makeDamage = true;
     }
 
@@ -107,14 +108,14 @@ public class TrapBase : ITickable
     {
         if (collider.gameObject.name != "Hitbox") return;
         if (!isReady) return;
-        isActive = true;
+        IsActive = true;
         animator.SetBool("isActive", true);
     }
 
     private void HandleColliderTriggerExit(GameObject gameObject, Collider2D collider)
     {
         if (collider.gameObject.name != "Hitbox") return;
-        isActive = false;
+        IsActive = false;
         animator.SetBool("isActive", false);
         lastDamage = 0;
     }
