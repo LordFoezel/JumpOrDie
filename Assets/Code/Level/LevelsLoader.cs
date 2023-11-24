@@ -4,17 +4,13 @@ using Unity.VisualScripting;
 
 public class LevelsBase : LevelLoaderBase
 {
-    private PlayerManager playerManager;
-    private TrapManager trapManager;
-    private PotionManager potionManager;
-    private CoinManager coinManager;
     private GameObject pauseObject;
     public event Action OnUpdateEvent;
 
-    public PlayerManager PlayerManager { get => playerManager; set => playerManager = value; }
-    public TrapManager TrapManager { get => trapManager; set => trapManager = value; }
-    public PotionManager PotionManager { get => potionManager; set => potionManager = value; }
-    public CoinManager CoinManager { get => coinManager; set => coinManager = value; }
+    public PlayerManager PlayerManager { get; set; }
+    public TrapManager TrapManager { get; set; }
+    public PotionManager PotionManager { get; set; }
+    public CoinManager CoinManager { get; set; }
 
 
 

@@ -16,4 +16,12 @@ public static class GameManager
     public static Dictionary<int, TrapBase> Traps { get => traps; set => traps = value; }
     public static Dictionary<int, PotionBase> Potions { get => potions; set => potions = value; }
     public static Dictionary<int, CoinBase> Coins { get => coins; set => coins = value; }
+
+    public static void ClearAll()
+    {
+        Player = null;
+        Traps.Clear();
+        Coins.Clear();
+        Potions.Clear();
+    }
 }

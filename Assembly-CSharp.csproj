@@ -50,10 +50,8 @@
      <Compile Include="Assets\Code\Level\LevelsLoader.cs" />
      <Compile Include="Assets\Code\Util\Static\UtilEnum.cs" />
      <Compile Include="Assets\Code\Menu\PauseMenu.cs" />
-     <Compile Include="Assets\Code\Player\PlayerState.cs" />
      <Compile Include="Assets\Code\Util\Static\UtilCamera.cs" />
      <Compile Include="Assets\Code\Level\LevelOne.cs" />
-     <Compile Include="Assets\Code\Menu\MainMenuLoader.cs" />
      <Compile Include="Assets\PlayerInput\InputMaster.cs" />
      <Compile Include="Assets\Code\Item\Potion\PotionBase.cs" />
      <Compile Include="Assets\Code\Inventar\InventoryBase.cs" />

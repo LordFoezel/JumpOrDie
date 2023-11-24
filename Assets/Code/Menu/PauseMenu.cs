@@ -33,12 +33,14 @@ public class PauseMenu : MonoBehaviour
 
     public void Load()
     {
+        GameManager.ClearAll();
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
     public void Exit()
     {
+        GameManager.ClearAll();
         levelLoader.LoadLevel("MainMenu");
     }
 }

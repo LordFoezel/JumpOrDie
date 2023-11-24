@@ -29,9 +29,8 @@ public class PlayerBase : ITickable
     RectTransform healthBarRect;
     Animator animator;
     LevelsBase levelLoader;
-    private InventoryBase inventory;
 
-    public InventoryBase Inventory { get => inventory; set => inventory = value; }
+    public InventoryBase Inventory { get ; set; }
     public int HitPoints { get => hitPoints; set => hitPoints = value; }
 
     public override void Tick()
@@ -176,7 +175,6 @@ public class PlayerBase : ITickable
         levelLoader = GameObject.Find("LevelLoader").GetComponent<LevelsBase>();
         SetTickEvent(levelLoader);
         playerObject = levelLoader.PrefabInstantiate(prefab);
-        playerObject.AddComponent<PlayerState>().SetId(id);
         Transform playerStart = GameObject.FindGameObjectWithTag("PlayerStart").transform;
         playerObject.transform.position = new Vector3(playerStart.position.x, playerStart.position.y, 0);
         animator = playerObject.transform.Find("Character").gameObject.GetComponent<Animator>();

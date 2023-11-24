@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class LevelLoaderBase : MonoBehaviour
 {
-
-    private bool isPaused = false;
-    public bool IsPaused { get => isPaused; set => isPaused = value; }
+    public bool IsPaused { get ; set; }
 
     public virtual void InitLevel()
     {

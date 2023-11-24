@@ -57,12 +57,14 @@ public class MainMenu : MonoBehaviour
 
     public void LoadGame()
     {
+        GameManager.ClearAll();
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
     public void Exit()
     {
+        GameManager.ClearAll();
         Application.Quit();
     }
 
