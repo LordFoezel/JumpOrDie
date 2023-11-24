@@ -2,13 +2,9 @@ using UnityEngine;
 
 public class LevelOne : LevelsBase
 {
-    public override void InitLevelData()
-    {
-        GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level01.ToString());
-    }
-
     public override void InitLevel()
     {
+        GameManager.ActualGameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level01.ToString());
         PlayerManager = new PlayerManager();
         TrapManager = new TrapManager();
         PotionManager = new PotionManager();

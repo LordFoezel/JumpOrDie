@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class LevelsBase : LevelLoaderBase
 {
@@ -15,10 +16,7 @@ public class LevelsBase : LevelLoaderBase
     public PotionManager PotionManager { get => potionManager; set => potionManager = value; }
     public CoinManager CoinManager { get => coinManager; set => coinManager = value; }
 
-    public override void InitLevelData()
-    {
-        GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level01.ToString());
-    }
+
 
     public override void InitLevel()
     {

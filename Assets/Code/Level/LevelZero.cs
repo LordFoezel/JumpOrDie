@@ -2,13 +2,9 @@ using UnityEngine;
 
 public class LevelZero : LevelLoaderBase
 {
-    public override void InitLevelData()
-    {
-        GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.MainMenu.ToString());
-    }
-
     public override void InitLevel()
     {
+        GameManager.ActualGameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.MainMenu.ToString());
         GameManager.ActualGameState = UtilEnum.GameState.Menu;
         GameObject mainMenuPrefab = Resources.Load<GameObject>("Prefaps/Menu/MainMenu");
         GameObject mainMenu = Instantiate(mainMenuPrefab, new Vector3(0, 0, 0), Quaternion.identity);

@@ -1,7 +1,17 @@
 public class LevelTwo : LevelsBase
 {
-    public override void InitLevelData()
+    public override void InitLevel()
     {
-        GameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level02.ToString());
+        GameManager.ActualGameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level02.ToString());
+        PlayerManager = new PlayerManager();
+        TrapManager = new TrapManager();
+        PotionManager = new PotionManager();
+        CoinManager = new CoinManager();
+        PotionManager.SetTickEvent(this);
+        CoinManager.SetTickEvent(this);
+        PlayerManager.AddPlayer();
+        base.InitLevel();
+
+        SaveLevel();
     }
 }

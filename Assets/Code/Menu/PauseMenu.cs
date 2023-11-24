@@ -27,7 +27,6 @@ public class PauseMenu : MonoBehaviour
         int coins = player.Inventory.GetCoins();
         int health = player.HitPoints;
         Vector2 position = player.GetPosition();
-        Debug.Log("Save: "+health+" Coins: "+coins+ " Position: " + position.x+"/"+position.y);
         UtilSaveManager.SaveCurrentGame(health, coins, position);
         loadGameButton.interactable = true;
     }

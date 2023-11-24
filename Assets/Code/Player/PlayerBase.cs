@@ -78,9 +78,6 @@ public class PlayerBase : ITickable
     {
         animator.SetTrigger("die");
         isAlive = false;
-        Debug.Log("Bevore");
-        UtilWait.WaitSeconds(10);
-        Debug.Log("after");
         animator.SetBool("isDead", true);
     }
 

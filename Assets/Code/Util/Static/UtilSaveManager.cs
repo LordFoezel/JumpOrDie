@@ -35,6 +35,7 @@ public static class UtilSaveManager
         int actualGameLevel = GameManager.ActualGameLevel;
         LevelData savedData = LoadLevelData();
         int maxGameLevel = savedData.maxLevel;
+        if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
         LevelData newData = new()
         {
             maxLevel = maxGameLevel,
@@ -49,7 +50,7 @@ public static class UtilSaveManager
         SaveLevelData(newData);
     }
 
-       public static void SaveCurrentGame(int health, int coins, Vector2 position)
+    public static void SaveCurrentGame(int health, int coins, Vector2 position)
     {
         int actualGameLevel = GameManager.ActualGameLevel;
         LevelData savedData = LoadLevelData();

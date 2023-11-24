@@ -13,7 +13,6 @@ public class MainMenu : MonoBehaviour
 
     void Awake()
     {
-        GameManager.ActualGameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.MainMenu.ToString());
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;

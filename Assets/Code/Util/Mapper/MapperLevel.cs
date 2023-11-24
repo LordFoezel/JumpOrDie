@@ -26,7 +26,6 @@ public static class MapperLevel
     {
         foreach (KeyValuePair<int, string> levelPair in levelsbase)
         {
-            Debug.Log(levelPair.Value + "  " + name);
             if (levelPair.Value == name) return levelPair.Key;
         }
         return 0;
