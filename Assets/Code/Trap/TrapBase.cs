@@ -27,6 +27,12 @@ public class TrapBase : ITickable
         }
     }
 
+    public void Remove()
+    {
+        GameObject.Destroy(trapObject);
+        GameObject.Destroy(switchObject);
+    }
+
     #region <<< Loaders >>>
 
     public void InitTrap()

@@ -31,6 +31,10 @@ public class CoinBase
         coinObject.transform.position = spawnPoint.position;
     }
 
+    public void Remove()
+    {
+        GameObject.Destroy(coinObject);
+    }
 
     private void LoadColliders()
     {
@@ -47,7 +51,7 @@ public class CoinBase
 
     void Collect(Collider2D collider)
     {
-        if (used) return; 
+        if (used) return;
         GameObject.Destroy(coinObject);
         GameManager.Coins.Remove(id);
         InventoryBase inventory = GameManager.Player.Inventory;

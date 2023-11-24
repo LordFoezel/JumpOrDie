@@ -10,10 +10,4 @@ public class PlayerManager
         GameManager.Player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
 
     }
-
-    public void RemovePlayer(int id)
-    {
-        GameManager.Player.RemovePlayer();
-        GameManager.Player = null;
-    }
 }

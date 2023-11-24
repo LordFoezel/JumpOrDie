@@ -30,11 +30,12 @@ public class PlayerBase : ITickable
     Animator animator;
     LevelsBase levelLoader;
 
-    public InventoryBase Inventory { get ; set; }
+    public InventoryBase Inventory { get; set; }
     public int HitPoints { get => hitPoints; set => hitPoints = value; }
 
     public override void Tick()
     {
+        if (!playerInput) return;
         PauseGame();
         if (!isReady) return;
         ControlePlayer();
@@ -276,7 +277,7 @@ public class PlayerBase : ITickable
 
     #region  <<< Public Functions >>>
 
-    public void RemovePlayer()
+    public void Remove()
     {
         GameObject.Destroy(playerObject);
     }

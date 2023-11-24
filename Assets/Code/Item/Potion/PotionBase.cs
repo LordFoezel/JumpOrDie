@@ -9,7 +9,8 @@ public class PotionBase
     public bool used = false;
     public LevelLoaderBase levelLoader;
 
-    public virtual void UsePotion(Collider2D collider){
+    public virtual void UsePotion(Collider2D collider)
+    {
 
     }
 
@@ -26,6 +27,11 @@ public class PotionBase
         GameObject prefab = Resources.Load<GameObject>(filename);
         potionObject = levelLoader.PrefabInstantiate(prefab);
         potionObject.transform.position = potionPosition.position;
+    }
+
+    public void Remove()
+    {
+        GameObject.Destroy(potionObject);
     }
 
     private void LoadColliders()

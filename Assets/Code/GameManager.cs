@@ -19,9 +19,25 @@ public static class GameManager
 
     public static void ClearAll()
     {
-        Player = null;
+        if (player != null)
+        {
+            player.Remove();
+            Player = null;
+        }
+        foreach (KeyValuePair<int, TrapBase> trap in Traps)
+        {
+            trap.Value.Remove();
+        }
         Traps.Clear();
+        foreach (KeyValuePair<int, CoinBase> coin in Coins)
+        {
+            coin.Value.Remove();
+        }
         Coins.Clear();
+        foreach (KeyValuePair<int, PotionBase> potion in Potions)
+        {
+            potion.Value.Remove();
+        }
         Potions.Clear();
     }
 }
