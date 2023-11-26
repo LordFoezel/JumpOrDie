@@ -68,6 +68,7 @@
      <Compile Include="Assets\Code\Util\Helper\UtilLevelLoader.cs" />
      <Compile Include="Assets\Code\GameManager.cs" />
      <Compile Include="Assets\Code\Item\Coin\CoinBase.cs" />
+     <Compile Include="Assets\Code\Util\Static\UtilDebug.cs" />
      <None Include="Assets\ReadMe.txt" />
      <None Include="Assets\LayerDoku.txt" />
      <None Include="Assets\Pendenzen.txt" />

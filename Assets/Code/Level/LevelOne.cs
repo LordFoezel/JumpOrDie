@@ -12,6 +12,7 @@ public class LevelOne : LevelsBase
         PotionManager.SetTickEvent(this);
         CoinManager.SetTickEvent(this);
         PlayerManager.AddPlayer();
+        CoinManager.LoadCoins();
         base.InitLevel();
 
         SaveLevel();

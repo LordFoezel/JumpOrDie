@@ -58,6 +58,7 @@ public static class UtilSaveManager
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
             traps = savedData.traps,
+            coins = savedData.coins,
         };
         SaveLevelData(newData);
     }
@@ -81,6 +82,7 @@ public static class UtilSaveManager
             positionX = x,
             positionY = y,
             traps = SavedTrapData(),
+            coins = SavedCoinData(),
         };
         SaveLevelData(newData);
     }
@@ -100,6 +102,7 @@ public static class UtilSaveManager
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
             traps = savedData.traps,
+            coins = savedData.coins,
         };
         SaveLevelData(newData);
     }
@@ -107,6 +110,10 @@ public static class UtilSaveManager
     public static List<int> SavedCoinData()
     {
         List<int> savedCoinData = new List<int>();
+        foreach (KeyValuePair<int, CoinBase> coin in GameManager.Coins)
+        {
+            savedCoinData.Add(coin.Key);
+        }
         return savedCoinData;
     }
 
