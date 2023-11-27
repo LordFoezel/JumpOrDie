@@ -3,12 +3,12 @@ using UnityEngine;
 
 public static class UtilDebug
 {
-    public static void Log(string message = "Log", object input = null)
+    public static void Log(object input = null, string message = "Log")
     {
-        if (input is null) Debug.Log(message);
-        else if (input is string) Debug.Log(message + "(string): " + input);
-        else if (input is int) Debug.Log(message + "(int): " + input.ToString());
-        else if (input is float) Debug.Log(message + "(float): " + input.ToString());
+        if (input is null) Debug.Log(message + "(" + input.GetType() + "): ");
+        else if (input is string) Debug.Log(message + "(" + input.GetType() + "): " + input);
+        else if (input is int) Debug.Log(message + "(" + input.GetType() + "): " + input.ToString());
+        else if (input is float) Debug.Log(message + "(" + input.GetType() + "): " + input.ToString());
         else if (input is IList)
         {
             string log = "";
@@ -16,7 +16,8 @@ public static class UtilDebug
             {
                 log += listItem.ToString() + ", ";
             }
-            Debug.Log(message + "(list): " + log);
+            Debug.Log(message + "(" + input.GetType() + "): " + log);
         }
+        else Debug.Log(message + "(" + input.GetType() + "): " + input.ToString());
     }
 }

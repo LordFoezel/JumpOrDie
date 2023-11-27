@@ -7,8 +7,6 @@ public class LevelTwo : LevelsBase
         TrapManager = new TrapManager();
         PotionManager = new PotionManager();
         CoinManager = new CoinManager();
-        PotionManager.SetTickEvent(this);
-        CoinManager.SetTickEvent(this);
         PlayerManager.AddPlayer();
         base.InitLevel();
 

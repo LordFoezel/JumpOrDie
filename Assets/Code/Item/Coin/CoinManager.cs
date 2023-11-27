@@ -1,12 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CoinManager : ITickable
+public class CoinManager
 {
-    public CoinManager()
-    {
-    }
-
     public void LoadCoins()
     {
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
@@ -15,14 +11,20 @@ public class CoinManager : ITickable
         int index = 0;
         foreach (GameObject spawnPoint in spawnPoints)
         {
-            if(!coins.Contains(index) && coins.Count != 0) return;
-            CoinBase newCoin = new CoinBase(index, spawnPoint.transform);
-            GameManager.Coins.Add(index, newCoin);
+            if (coins.Count != 0)
+            {
+                if (coins.Contains(index))
+                {
+                    CoinBase newCoin = new CoinBase(index, spawnPoint.transform);
+                    GameManager.Coins.Add(index, newCoin);
+                }
+            }
+            else
+            {
+                CoinBase newCoin = new CoinBase(index, spawnPoint.transform);
+                GameManager.Coins.Add(index, newCoin);
+            }
             index += 1;
         }
-    }
-
-    public override void Tick()
-    {
     }
 }

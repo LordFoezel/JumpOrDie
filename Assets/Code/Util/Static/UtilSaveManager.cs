@@ -27,6 +27,7 @@ public static class UtilSaveManager
         public float positionY;
         public List<TrapData> traps;
         public List<int> coins;
+        public List<int> potions;
     }
 
     public static void SaveLevelData(LevelData levelData)
@@ -59,6 +60,7 @@ public static class UtilSaveManager
             isIngame = savedData.isIngame,
             traps = savedData.traps,
             coins = savedData.coins,
+            potions = savedData.potions,
         };
         SaveLevelData(newData);
     }
@@ -83,6 +85,7 @@ public static class UtilSaveManager
             positionY = y,
             traps = SavedTrapData(),
             coins = SavedCoinData(),
+            potions = SavedPotionData(),
         };
         SaveLevelData(newData);
     }
@@ -103,18 +106,29 @@ public static class UtilSaveManager
             isIngame = savedData.isIngame,
             traps = savedData.traps,
             coins = savedData.coins,
+            potions = savedData.potions,
         };
         SaveLevelData(newData);
     }
 
     public static List<int> SavedCoinData()
     {
-        List<int> savedCoinData = new List<int>();
-        foreach (KeyValuePair<int, CoinBase> coin in GameManager.Coins)
+        List<int> savedData = new List<int>();
+        foreach (KeyValuePair<int, CoinBase> item in GameManager.Coins)
         {
-            savedCoinData.Add(coin.Key);
+            savedData.Add(item.Key);
         }
-        return savedCoinData;
+        return savedData;
+    }
+
+        public static List<int> SavedPotionData()
+    {
+        List<int> savedData = new List<int>();
+        foreach (KeyValuePair<int, PotionBase> item in GameManager.Potions)
+        {
+            savedData.Add(item.Key);
+        }
+        return savedData;
     }
 
     public static List<TrapData> SavedTrapData()
