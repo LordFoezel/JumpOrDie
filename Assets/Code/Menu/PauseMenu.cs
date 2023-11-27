@@ -1,19 +1,38 @@
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
-    public Button loadGameButton;
+    private Button loadGameButton;
+    private Text responseText;
     UtilLevelLoader levelLoader;
+    float lastTextDisplayd = 0f;
 
     void Awake()
     {
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
-        // TODO: Wiso findet er das nicht????
-        // loadGameButton = gameObject.transform.Find("LevelMenuPanel").gameObject.GetComponent<Button>();
+        loadGameButton = gameObject.transform.Find("LevelMenuPanel").gameObject.transform.Find("Panel").gameObject.transform.Find("Load").gameObject.GetComponent<Button>();
         UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
         if (savedData.isIngame == 0) loadGameButton.interactable = false;
         else loadGameButton.interactable = true;
+        responseText = gameObject.transform.Find("LevelMenuPanel").gameObject.transform.Find("Panel").gameObject.transform.Find("Response").GetComponent<Text>();
+    }
+
+    void Update()
+    {
+        if (lastTextDisplayd + 2f < Time.time) ClearResponseText();
+    }
+
+    public void SetResponseText(string text)
+    {
+        responseText.text = text;
+        lastTextDisplayd = Time.time;
+    }
+
+    private void ClearResponseText()
+    {
+        responseText.text = "";
     }
 
     public void Continue()
@@ -29,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         Vector2 position = player.GetPosition();
         UtilSaveManager.SaveCurrentGame(health, coins, position);
         loadGameButton.interactable = true;
+        SetResponseText("Game saved!");
     }
 
     public void Load()
@@ -41,6 +61,6 @@ public class PauseMenu : MonoBehaviour
     public void Exit()
     {
         GameManager.ClearAll();
-        levelLoader.LoadLevel("MainMenu");
+        levelLoader.LoadLevel(UtilEnum.GameLevel.MainMenu.ToString());
     }
 }

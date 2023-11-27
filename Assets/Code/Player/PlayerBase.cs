@@ -29,6 +29,8 @@ public class PlayerBase : ITickable
     RectTransform healthBarRect;
     Animator animator;
     LevelsBase levelLoader;
+    GameObject canvasObject;
+    Text coinText;
 
     public InventoryBase Inventory { get; set; }
     public int HitPoints { get => hitPoints; set => hitPoints = value; }
@@ -131,20 +133,20 @@ public class PlayerBase : ITickable
         LoadCamera();
         LoadColliders();
         LoadInputActions();
-        LoadCanvas();
         LoadInventory();
+        LoadCanvas();
         isReady = true;
     }
 
     private void LoadInventory()
     {
-        Inventory = new InventoryBase();
+        Inventory = new InventoryBase(this);
     }
 
     private void LoadCanvas()
     {
-        GameObject healthCanvasObject = new GameObject("HealthCanvas");
-        Canvas healthCanvas = healthCanvasObject.AddComponent<Canvas>();
+        canvasObject = new GameObject("HealthCanvas");
+        Canvas healthCanvas = canvasObject.AddComponent<Canvas>();
         healthCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
         GameObject healthBarBackground = new GameObject("HealthBarBackground");
@@ -168,6 +170,19 @@ public class PlayerBase : ITickable
         healthBarRect.anchorMin = new Vector2(0f, 0f);
         healthBarRect.anchorMax = new Vector2(0f, 0f);
         healthBarRect.pivot = new Vector2(0f, 0f);
+
+
+        GameObject coinCounter = new GameObject("CoinCounter");
+        coinCounter.transform.parent = healthCanvas.transform;
+        coinText = coinCounter.AddComponent<Text>();
+        coinText.font = UtilFont.GetFont();
+        RectTransform textTRansform = coinText.GetComponent<RectTransform>();
+        textTRansform.localPosition = new Vector3(65f, 50f, 0f);
+        textTRansform.anchorMin = new Vector2(0f, 0f);
+        textTRansform.anchorMax = new Vector2(0f, 0f);
+        textTRansform.sizeDelta = new Vector2(healthBarWidth, 20f);
+        textTRansform.pivot = new Vector2(0f, 0f);
+        RefreshDisplayCoins();
     }
 
     private void LoadPlayer()
@@ -277,9 +292,15 @@ public class PlayerBase : ITickable
 
     #region  <<< Public Functions >>>
 
+    public void RefreshDisplayCoins()
+    {
+        coinText.text = "Coins: " + Inventory.GetCoins();
+    }
+
     public void Remove()
     {
         GameObject.Destroy(playerObject);
+        GameObject.Destroy(canvasObject);
     }
 
     #endregion

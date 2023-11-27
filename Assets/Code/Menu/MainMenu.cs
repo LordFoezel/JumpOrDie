@@ -31,8 +31,10 @@ public class MainMenu : MonoBehaviour
     {
         buttons = new Dictionary<int, Button>();
         Transform panel = levelMenuPanel.transform.Find("Panel").transform;
-        buttons.Add(1, panel.Find("Level01").gameObject.GetComponent<Button>());
-        buttons.Add(2, panel.Find("Level02").gameObject.GetComponent<Button>());
+        buttons.Add(1, panel.Find(UtilEnum.GameLevel.Level01.ToString()).gameObject.GetComponent<Button>());
+        buttons.Add(2, panel.Find(UtilEnum.GameLevel.Level02.ToString()).gameObject.GetComponent<Button>());
+        buttons.Add(3, panel.Find(UtilEnum.GameLevel.Level03.ToString()).gameObject.GetComponent<Button>());
+        buttons.Add(4, panel.Find(UtilEnum.GameLevel.Level04.ToString()).gameObject.GetComponent<Button>());
         foreach (KeyValuePair<int, Button> button in buttons)
         {
             if (button.Key <= maxLevel) button.Value.interactable = true;
@@ -52,7 +54,7 @@ public class MainMenu : MonoBehaviour
             isIngame = 0,
         };
         UtilSaveManager.SaveLevelData(saveData);
-        levelLoader.LoadLevel("Level01");
+        levelLoader.LoadLevel(UtilEnum.GameLevel.Level01.ToString());
     }
 
     public void LoadGame()

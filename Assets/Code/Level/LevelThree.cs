@@ -1,8 +1,8 @@
-public class LevelTwo : LevelsBase
+public class LevelThree : LevelsBase
 {
     public override void InitLevel()
     {
-        GameManager.ActualGameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level02.ToString());
+        GameManager.ActualGameLevel = MapperLevel.GetLevelId(UtilEnum.GameLevel.Level03.ToString());
         PlayerManager = new PlayerManager();
         TrapManager = new TrapManager();
         PotionManager = new PotionManager();
