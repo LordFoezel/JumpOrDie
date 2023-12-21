@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+// Test
 public static class GameManager
 {
     public static UtilEnum.GameState ActualGameState { get; set; }
