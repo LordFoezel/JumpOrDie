@@ -8706,7 +8706,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3334651151587680889, guid: 30488c8ff6610b946ac490b40c938551, type: 3}
       propertyPath: nextLevelName
-      value: Level02
+      value: MainMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8134687975018148941, guid: 30488c8ff6610b946ac490b40c938551, type: 3}
       propertyPath: m_Name
