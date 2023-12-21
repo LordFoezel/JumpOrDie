@@ -14,5 +14,6 @@ public class LevelExit : MonoBehaviour
 
         UtilLevelLoader utilLevelLoader = gameObject.AddComponent<UtilLevelLoader>();
         utilLevelLoader.LoadLevel(nextLevelName);
+        GameManager.ClearAll();
     }
 }
