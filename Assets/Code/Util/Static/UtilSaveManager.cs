@@ -142,4 +142,29 @@ public static class UtilSaveManager
         }
         return savedTrapData;
     }
+
+        public static void SaveExitGame(int health, int coins, Vector2 position)
+    {
+        int actualGameLevel = GameManager.ActualGameLevel;
+        LevelData savedData = LoadLevelData();
+        int maxGameLevel = savedData.maxLevel;
+        if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
+        float x = position.x;
+        float y = position.y;
+        LevelData newData = new()
+        {
+            maxLevel = maxGameLevel,
+            actualLevel = actualGameLevel,
+            health = health,
+            totalCoins = savedData.totalCoins,
+            levelCoins = coins,
+            isIngame = 1,
+            positionX = x,
+            positionY = y,
+            traps = new List<TrapData>(),
+            coins = new List<int>(),
+            potions = new List<int>(),
+        };
+        SaveLevelData(newData);
+    }
 }
