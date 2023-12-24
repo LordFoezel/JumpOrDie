@@ -72,6 +72,8 @@ public class MainMenu : MonoBehaviour
 
     public void ActivateLevelChosePanel()
     {
+        UtilSaveManager.LevelData levelsBaseaves = UtilSaveManager.LoadLevelData();
+        maxLevel = levelsBaseaves.maxLevel;
         levelMenuPanel.SetActive(true);
     }
 
@@ -88,5 +90,15 @@ public class MainMenu : MonoBehaviour
     public void StartLevel2()
     {
         levelLoader.LoadLevel("Level02");
+    }
+
+     public void StartLevel3()
+    {
+        levelLoader.LoadLevel("Level03");
+    }
+
+     public void StartLevel4()
+    {
+        levelLoader.LoadLevel("Level04");
     }
 }

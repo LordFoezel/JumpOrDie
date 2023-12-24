@@ -8,8 +8,9 @@ public class LevelExit : MonoBehaviour
     {
         if (collider.gameObject.tag != "Player") return;
         PlayerBase player = GameManager.Player;
-        UtilSaveManager.SaveExitGame(player.HitPoints,  player.Inventory.GetCoins(), new Vector2());
-        UtilSaveManager.SaveTotalCoins();
+        // UtilSaveManager.SaveTotalCoins();
+        // UtilSaveManager.SaveExitGame(player.HitPoints,  , new Vector2());
+        UtilSaveManager.SaveLevelExit(player.Inventory.GetCoins());
         GameManager.ClearAll();
         UtilLevelLoader utilLevelLoader = gameObject.AddComponent<UtilLevelLoader>();
         utilLevelLoader.LoadLevel(nextLevelName);
