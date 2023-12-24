@@ -24,4 +24,5 @@ Sounds
 Schöneres UI
 
 Aktuelle Pendenzen:
-continue to restart when player is dead
+Level 2 und 3 und 4
+Bei schaden animation abschpielen mit blut
