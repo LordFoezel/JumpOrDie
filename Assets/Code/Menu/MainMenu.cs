@@ -44,16 +44,7 @@ public class MainMenu : MonoBehaviour
 
     public void NewGame()
     {
-        UtilSaveManager.LevelData saveData = new()
-        {
-            maxLevel = 1,
-            actualLevel = 0,
-            health = 0,
-            totalCoins = 0,
-            levelCoins = 0,
-            isIngame = 0,
-        };
-        UtilSaveManager.SaveLevelData(saveData);
+        UtilSaveManager.ClearLevelSave();
         levelLoader.LoadLevel(UtilEnum.GameLevel.Level01.ToString());
     }
 

@@ -57,7 +57,8 @@ public class LevelsBase : LevelLoaderBase
 
     public void SaveLevel()
     {
-        UtilSaveManager.SaveLevelStart();
+        UtilSaveManager.SaveMaxLevel();
+        UtilSaveManager.SaveIsIngame(1);
     }
 
     public void PauseGame()

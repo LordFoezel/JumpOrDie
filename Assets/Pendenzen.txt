@@ -26,6 +26,7 @@ Schöneres UI
 
 
 Aktuelle Pendenzen:
+Trap per save
 Chose level and save things
 Bei schaden animation abschpielen mit blut
 

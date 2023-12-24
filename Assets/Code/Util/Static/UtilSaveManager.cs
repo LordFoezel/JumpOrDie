@@ -21,24 +21,96 @@ public static class UtilSaveManager
         public int totalCoins;
         public int levelCoins;
         public int health;
-        public int isIngame;
         public float positionX;
         public float positionY;
+        public int isIngame;
         public List<TrapData> traps;
         public List<int> coins;
         public List<int> potions;
     }
 
-    public static void SaveLevelData(LevelData levelData)
+    public static void SaveMaxLevel()
     {
-        string json = JsonUtility.ToJson(levelData);
-        File.WriteAllText(filePath, json);
+        LevelData savedData = LoadLevelData();
+        int actualGameLevel = GameManager.ActualGameLevel;
+        int maxGameLevel = savedData.maxLevel;
+        if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
+        LevelData newData = new()
+        {
+            maxLevel = maxGameLevel,
+            actualLevel = actualGameLevel,
+            health = savedData.health,
+            levelCoins = savedData.levelCoins,
+            totalCoins = savedData.totalCoins,
+            positionX = savedData.positionX,
+            positionY = savedData.positionY,
+            isIngame = savedData.isIngame,
+            traps = savedData.traps,
+            coins = savedData.coins,
+            potions = savedData.potions,
+        };
+        SaveLevelData(newData);
     }
 
-    public static LevelData LoadLevelData()
+    public static void SaveTotalCoins(int coins)
     {
-        if (!File.Exists(filePath)) return new LevelData();
-        return JsonUtility.FromJson<LevelData>(File.ReadAllText(filePath));
+        LevelData savedData = LoadLevelData();
+        int newTotalCoins = savedData.totalCoins + coins;
+        LevelData newData = new()
+        {
+            levelCoins = 0,
+            totalCoins = newTotalCoins,
+            maxLevel = savedData.maxLevel,
+            actualLevel = savedData.actualLevel,
+            health = savedData.health,
+            positionX = savedData.positionX,
+            positionY = savedData.positionY,
+            isIngame = savedData.isIngame,
+            traps = savedData.traps,
+            coins = savedData.coins,
+            potions = savedData.potions,
+        };
+        SaveLevelData(newData);
+    }
+
+    public static void SaveIsIngame(int isIngame)
+    {
+        LevelData savedData = LoadLevelData();
+        LevelData newData = new()
+        {
+            isIngame = isIngame,
+            maxLevel = savedData.maxLevel,
+            actualLevel = savedData.actualLevel,
+            health = savedData.health,
+            levelCoins = savedData.levelCoins,
+            totalCoins = savedData.totalCoins,
+            positionX = savedData.positionX,
+            positionY = savedData.positionY,
+            traps = savedData.traps,
+            coins = savedData.coins,
+            potions = savedData.potions,
+        };
+        SaveLevelData(newData);
+    }
+
+    public static void SaveLevelData()
+    {
+        LevelData savedData = LoadLevelData();
+        LevelData newData = new()
+        {
+            maxLevel = savedData.maxLevel,
+            actualLevel = savedData.actualLevel,
+            health = savedData.health,
+            levelCoins = savedData.levelCoins,
+            totalCoins = savedData.totalCoins,
+            positionX = savedData.positionX,
+            positionY = savedData.positionY,
+            isIngame = savedData.isIngame,
+            traps = SavedTrapData(),
+            coins = SavedCoinData(),
+            potions = SavedPotionData(),
+        };
+        SaveLevelData(newData);
     }
 
     public static void SaveCurrentGame(int health, int coins, Vector2 position)
@@ -46,10 +118,13 @@ public static class UtilSaveManager
         LevelData savedData = LoadLevelData();
         float x = position.x;
         float y = position.y;
+        int actualGameLevel = GameManager.ActualGameLevel;
+        int maxGameLevel = savedData.maxLevel;
+        if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
         LevelData newData = new()
         {
-            maxLevel = savedData.maxLevel,
-            actualLevel = savedData.actualLevel,
+            maxLevel = maxGameLevel,
+            actualLevel = actualGameLevel,
             totalCoins = savedData.totalCoins,
             health = health,
             levelCoins = coins,
@@ -63,53 +138,39 @@ public static class UtilSaveManager
         SaveLevelData(newData);
     }
 
-    // Save total Coins after ending a Level
-    public static void SaveLevelExit(int coins)
+       public static void ClearLevelSave()
     {
         LevelData savedData = LoadLevelData();
-        int newTotalCoins = savedData.totalCoins + coins;
         LevelData newData = new()
         {
             maxLevel = savedData.maxLevel,
             actualLevel = savedData.actualLevel,
             health = savedData.health,
             levelCoins = 0,
-            totalCoins = newTotalCoins,
-            positionX = savedData.positionX,
-            positionY = savedData.positionY,
-            isIngame = 1,
-            traps = savedData.traps,
-            coins = savedData.coins,
-            potions = savedData.potions,
-        };
-        SaveLevelData(newData);
-    }
-
-    // Save Things bevore level start
-    public static void SaveLevelStart()
-    {
-        int actualGameLevel = GameManager.ActualGameLevel;
-        LevelData savedData = LoadLevelData();
-        int maxGameLevel = savedData.maxLevel;
-        if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
-        LevelData newData = new()
-        {
-            maxLevel = maxGameLevel,
-            actualLevel = actualGameLevel,
-            health = savedData.health,
             totalCoins = savedData.totalCoins,
-            levelCoins = 0,
-            isIngame = 1,
-            positionX = savedData.positionX,
-            positionY = savedData.positionY,
-            traps = SavedTrapData(),
-            coins = SavedCoinData(),
-            potions = SavedPotionData(),
+            positionX = 0,
+            positionY = 0,
+            isIngame = savedData.isIngame,
+            traps = new List<TrapData>(),
+            coins = new List<int>(),
+            potions = new List<int>(),
         };
         SaveLevelData(newData);
     }
 
     #region <<< Helpers >>>
+
+    public static void SaveLevelData(LevelData levelData)
+    {
+        string json = JsonUtility.ToJson(levelData);
+        File.WriteAllText(filePath, json);
+    }
+
+    public static LevelData LoadLevelData()
+    {
+        if (!File.Exists(filePath)) return new LevelData();
+        return JsonUtility.FromJson<LevelData>(File.ReadAllText(filePath));
+    }
 
     public static List<int> SavedCoinData()
     {
