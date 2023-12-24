@@ -1,4 +1,5 @@
 using UnityEngine;
+
 #nullable enable
 public class SpikeTrap : TrapBase
 {

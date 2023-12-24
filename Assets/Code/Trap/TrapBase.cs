@@ -7,9 +7,6 @@ public class TrapBase : ITickable
     public int damage;
     public string filename;
     public GameObject trapPosition;
-#nullable enable
-    public GameObject? switchPosition;
-#nullable disable
     GameObject trapObject;
     GameObject switchObject;
     public bool IsActive { set; get; } = false;
@@ -18,6 +15,11 @@ public class TrapBase : ITickable
     float lastDamage = 0f;
     LevelsBase levelLoader;
     Animator animator;
+    float getDown;
+
+#nullable enable
+    public GameObject? switchPosition;
+#nullable disable
 
     public override void Tick()
     {
@@ -25,6 +27,9 @@ public class TrapBase : ITickable
         {
             GameManager.Player.TakeDamage(damage);
             lastDamage = Time.time;
+        }
+        if (IsActive == false){
+            GetAnimDown();
         }
     }
 
@@ -116,9 +121,18 @@ public class TrapBase : ITickable
     {
         if (collider.gameObject.name != "Hitbox") return;
         IsActive = false;
-        animator.SetBool("isActive", false);
+        // animator.SetBool("isActive", false);
+        getDown = Time.time;
         lastDamage = 0;
     }
 
+    private void GetAnimDown()
+    {
+        if(Time.time >= (getDown + 1))
+        {
+            animator.SetBool("isActive", false);
+            getDown = 0;  
+        }
+    }
     #endregion
 }
