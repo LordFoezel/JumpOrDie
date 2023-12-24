@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 8963324743417004917}
   - component: {fileID: 3521146761549773383}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: ContinueButtonText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1044,7 +1044,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2ddc30c23e8174781e2d241b8d554f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loadGameButton: {fileID: 5300738240503948216}
 --- !u!1 &7493891568481188992
 GameObject:
   m_ObjectHideFlags: 0

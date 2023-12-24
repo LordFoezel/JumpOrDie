@@ -121,14 +121,13 @@ public class TrapBase : ITickable
     {
         if (collider.gameObject.name != "Hitbox") return;
         IsActive = false;
-        // animator.SetBool("isActive", false);
         getDown = Time.time;
         lastDamage = 0;
     }
 
     private void GetAnimDown()
     {
-        if(Time.time >= (getDown + 1))
+        if(Time.time >= (getDown + 1) && animator)
         {
             animator.SetBool("isActive", false);
             getDown = 0;  

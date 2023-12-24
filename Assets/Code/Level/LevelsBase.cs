@@ -5,7 +5,7 @@ public class LevelsBase : LevelLoaderBase
 {
     private GameObject pauseObject;
     public event Action OnUpdateEvent;
-
+    private PauseMenu pauseMenu;
     public PlayerManager PlayerManager { get; set; }
     public TrapManager TrapManager { get; set; }
     public PotionManager PotionManager { get; set; }
@@ -36,6 +36,7 @@ public class LevelsBase : LevelLoaderBase
         {
             if (!IsPaused)
             {
+                pauseMenu.UpdateButtons();
                 pauseObject.SetActive(true);
                 IsPaused = true;
             }
@@ -71,6 +72,7 @@ public class LevelsBase : LevelLoaderBase
         GameObject pausePrefab = Resources.Load<GameObject>("Prefaps/Menu/Pause");
         pauseObject = Instantiate(pausePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         pauseObject.SetActive(false);
+        pauseMenu = pauseObject.GetComponent<PauseMenu>();
         Camera camera = GameObject.Find("Camera").gameObject.GetComponent<Camera>();
         Canvas canvas = pauseObject.GetComponent<Canvas>();
         canvas.worldCamera = camera;
