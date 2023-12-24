@@ -32,4 +32,8 @@ public static class GameManager
         }
         Potions.Clear();
     }
+
+    public static void  SetActualGameState(UtilEnum.GameState gameState){
+        ActualGameState = gameState;
+    }
 }

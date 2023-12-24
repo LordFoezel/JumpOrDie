@@ -17,7 +17,8 @@ public class LevelsBase : LevelLoaderBase
     {
         base.InitLevel();
         LoadPauseObject();
-        GameManager.ActualGameState = UtilEnum.GameState.Running;
+        GameManager.SetActualGameState(UtilEnum.GameState.Running);
+        Cursor.visible = false;
     }
 
     public override void Tick()
@@ -60,12 +61,13 @@ public class LevelsBase : LevelLoaderBase
 
     public void PauseGame()
     {
-        GameManager.ActualGameState = UtilEnum.GameState.Pause;
+        GameManager.SetActualGameState(UtilEnum.GameState.Pause);
+        Cursor.visible = true;
     }
 
     private void LoadPauseObject()
     {
-        GameManager.ActualGameState = UtilEnum.GameState.Menu;
+        GameManager.SetActualGameState(UtilEnum.GameState.Menu);
         GameObject pausePrefab = Resources.Load<GameObject>("Prefaps/Menu/Pause");
         pauseObject = Instantiate(pausePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         pauseObject.SetActive(false);

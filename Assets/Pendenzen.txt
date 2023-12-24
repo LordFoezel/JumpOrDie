@@ -24,6 +24,5 @@ Sounds
 Schöneres Menu etc
 
 Aktuelle Pendenzen
-Tick als event bei Player?
-Speichern und laden
 mauszeiger entfernen
+continue to restart when player is dead

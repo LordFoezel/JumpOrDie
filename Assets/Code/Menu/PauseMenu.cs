@@ -37,7 +37,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Continue()
     {
-        GameManager.ActualGameState = UtilEnum.GameState.Running;
+        GameManager.SetActualGameState(UtilEnum.GameState.Running);
+        Cursor.visible = false;
     }
 
     public void Save()

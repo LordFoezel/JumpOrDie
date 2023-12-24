@@ -13,5 +13,6 @@ public class LevelZero : LevelLoaderBase
         GameObject cameraObject = UtilCamera.CreateCamera();
         Camera camera = cameraObject.GetComponent<Camera>();
         canvas.worldCamera = camera;
+        Cursor.visible = true;
     }
 }
