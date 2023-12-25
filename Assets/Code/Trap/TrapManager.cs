@@ -18,9 +18,7 @@ public class TrapManager
         {
             bool isReady = true;
             if (trapData.Count != 0) {
-                Debug.Log(trapData[index].isReady);
                 isReady = UtilBool.IntToBool(trapData[index].isReady);
-                Debug.Log(isReady);
             }
             AddTrap(index, isReady);
             index += 1;
