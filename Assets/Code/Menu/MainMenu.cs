@@ -16,7 +16,7 @@ public class MainMenu : MonoBehaviour
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
-        UtilSaveManager.SaveGameData saveData = UtilSaveManager.LoadSaveData();
+        SaveGameData saveData = UtilSaveManager.LoadSaveData();
         maxLevel = saveData.maxLevel;
         InitButtons();
         RefreshButtons();
@@ -47,7 +47,7 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         GameManager.ClearAll();
-        UtilSaveManager.SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        SaveGameData savedData = UtilSaveManager.LoadSaveData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
@@ -64,7 +64,7 @@ public class MainMenu : MonoBehaviour
     }
 
     private void RefreshButtons(){
-        UtilSaveManager.SaveGameData gameData = UtilSaveManager.LoadSaveData();
+        SaveGameData gameData = UtilSaveManager.LoadSaveData();
         maxLevel = gameData.maxLevel;
         foreach (KeyValuePair<int, Button> button in buttons)
         {

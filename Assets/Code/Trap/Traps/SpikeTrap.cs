@@ -12,7 +12,7 @@ public class SpikeTrap : TrapBase
         name = "SpikeTrap";
         this.trapPosition = trapPosition;
         this.switchPosition = switchPosition;
-        this.isReady = isReady;
+        this.IsReady = isReady;
         InitTrap();
     }
 }

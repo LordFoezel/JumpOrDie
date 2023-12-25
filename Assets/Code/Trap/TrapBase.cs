@@ -10,7 +10,7 @@ public class TrapBase : ITickable
     GameObject trapObject;
     GameObject switchObject;
     public bool IsActive { set; get; } = false;
-    public bool isReady = true;
+    public bool IsReady { set; get; } = true;
     bool makeDamage = false;
     float lastDamage = 0f;
     LevelsBase levelLoader;
@@ -49,7 +49,7 @@ public class TrapBase : ITickable
 
     public void SetIsReady(bool isReady)
     {
-        this.isReady = isReady;
+        this.IsReady = isReady;
     }
 
     public void LoadTrap()
@@ -64,7 +64,7 @@ public class TrapBase : ITickable
         {
             switchObject.transform.position = switchPosition.transform.position;
             TrapSwitch trapSwitch = switchObject.AddComponent<TrapSwitch>();
-            trapSwitch.SetActive(isReady);
+            trapSwitch.SetActive(IsReady);
             trapSwitch.SetTrap(this);
         }
         else GameObject.Destroy(switchObject);
@@ -112,7 +112,7 @@ public class TrapBase : ITickable
     private void HandleColliderTriggerEnter(GameObject gameObject, Collider2D collider)
     {
         if (collider.gameObject.name != "Hitbox") return;
-        if (!isReady) return;
+        if (!IsReady) return;
         IsActive = true;
         animator.SetBool("isActive", true);
     }

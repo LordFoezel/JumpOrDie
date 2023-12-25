@@ -6,28 +6,6 @@ public static class UtilSaveManager
 {
     private static readonly string filePath = Path.Combine(Application.persistentDataPath, "SaveData.json");
 
-    [System.Serializable]
-    public class TrapData
-    {
-        public int id;
-        public int isActive;
-    }
-
-    [System.Serializable]
-    public class SaveGameData
-    {
-        public int maxLevel;
-        public int actualLevel;
-        public int levelCoins;
-        public int health;
-        public float positionX;
-        public float positionY;
-        public int isIngame;
-        public List<TrapData> traps;
-        public List<int> coins;
-        public List<int> potions;
-    }
-
     public static void SaveMaxLevel()
     {
         SaveGameData savedData = LoadSaveData();
@@ -189,9 +167,8 @@ public static class UtilSaveManager
         List<TrapData> savedTrapData = new List<TrapData>();
         foreach (KeyValuePair<int, TrapBase> trap in GameManager.Traps)
         {
-            int isActive = 0;
-            if (trap.Value.IsActive) isActive = 1;
-            savedTrapData.Add(new TrapData() { id = trap.Key, isActive = isActive });
+            int isReady = UtilBool.BoolToInt(trap.Value.IsReady);
+            savedTrapData.Add(new TrapData() { id = trap.Key, isReady = isReady });
         }
         return savedTrapData;
     }

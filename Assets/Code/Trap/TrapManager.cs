@@ -1,8 +1,8 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class TrapManager
 {
-
     public TrapManager()
     {
         AddTraps();
@@ -10,21 +10,29 @@ public class TrapManager
 
     public void AddTraps()
     {
+        SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        List<TrapData> trapData = savedData.traps;
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpikeTrap");
         int index = 0;
         foreach (GameObject spawnPoint in spawnPoints)
         {
-            AddTrap(index);
+            bool isReady = true;
+            if (trapData.Count != 0) {
+                Debug.Log(trapData[index].isReady);
+                isReady = UtilBool.IntToBool(trapData[index].isReady);
+                Debug.Log(isReady);
+            }
+            AddTrap(index, isReady);
             index += 1;
         }
     }
 
-    public void AddTrap(int id)
+    public void AddTrap(int id, bool isReady)
     {
         GameObject trapPositio = GameObject.Find("SpikeTrap" + id);
         if (!trapPositio) return;
         GameObject switchPositio = GameObject.Find("SpikeSwitch" + id);
-        TrapBase newTrap = new SpikeTrap(id, trapPositio, switchPositio);
+        TrapBase newTrap = new SpikeTrap(id, trapPositio, switchPositio, isReady);
         GameManager.Traps.Add(id, newTrap);
     }
 }
