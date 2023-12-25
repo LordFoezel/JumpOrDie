@@ -6,6 +6,8 @@ using System;
 
 public class PlayerBase : ITickable
 {
+    readonly float healthBarWidth = 200f;
+    
     public int id;
     public string filename;
     public int jumpingHeight;
@@ -19,11 +21,7 @@ public class PlayerBase : ITickable
     bool isAlive = true;
     bool faceLeft = false;
     bool isInteracting = false;
-    int totalCoins = 0;
-#nullable enable
-    GameObject? focusObject;
-#nullable disable
-    readonly float healthBarWidth = 200f;
+
     GameObject playerObject;
     Rigidbody2D rigidbody2D;
     PlayerInput playerInput;
@@ -32,7 +30,10 @@ public class PlayerBase : ITickable
     LevelsBase levelLoader;
     GameObject canvasObject;
     Text coinText;
-    Text totalCoinText;
+
+    #nullable enable
+    GameObject? focusObject;
+    #nullable disable
 
     public InventoryBase Inventory { get; set; }
     public int HitPoints { get => hitPoints; set => hitPoints = value; }
@@ -184,17 +185,6 @@ public class PlayerBase : ITickable
         textTRansform.anchorMax = new Vector2(0f, 0f);
         textTRansform.sizeDelta = new Vector2(healthBarWidth, 20f);
         textTRansform.pivot = new Vector2(0f, 0f);
-
-        GameObject totalCoinCounter = new GameObject("TotalCoinCounter");
-        totalCoinCounter.transform.parent = healthCanvas.transform;
-        totalCoinText = totalCoinCounter.AddComponent<Text>();
-        totalCoinText.font = UtilFont.GetFont();
-        RectTransform totalTextTRansform = totalCoinText.GetComponent<RectTransform>();
-        totalTextTRansform.localPosition = new Vector3(65f, 70f, 0f);
-        totalTextTRansform.anchorMin = new Vector2(0f, 0f);
-        totalTextTRansform.anchorMax = new Vector2(0f, 0f);
-        totalTextTRansform.sizeDelta = new Vector2(healthBarWidth, 20f);
-        totalTextTRansform.pivot = new Vector2(0f, 0f);
         RefreshDisplayCoins();
     }
 
@@ -207,8 +197,6 @@ public class PlayerBase : ITickable
         Transform playerStart = GameObject.FindGameObjectWithTag("PlayerStart").transform;
         playerObject.transform.position = new Vector3(playerStart.position.x, playerStart.position.y, 0);
         animator = playerObject.transform.Find("Character").gameObject.GetComponent<Animator>();
-        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
-        totalCoins = savedData.totalCoins;
     }
 
     private void LoadRigitBody2D()
@@ -310,7 +298,6 @@ public class PlayerBase : ITickable
     public void RefreshDisplayCoins()
     {
         coinText.text = "Coins: " + Inventory.GetCoins();
-        totalCoinText.text = "Total: " + (totalCoins + Inventory.GetCoins());
     }
 
     public void Remove()
@@ -368,7 +355,6 @@ public class PlayerBase : ITickable
         if (position.x == 0 && position.y == 0) return;
         HitPoints = health;
         healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(health, hitPointsMax, healthBarWidth), 20f);
-
         SetPosition(position);
         Inventory.SetCoins(coins);
     }

@@ -8,7 +8,6 @@ public class LevelExit : MonoBehaviour
     {
         if (collider.gameObject.tag != "Player") return;
         PlayerBase player = GameManager.Player;
-        UtilSaveManager.SaveTotalCoins(player.Inventory.GetCoins());
         UtilSaveManager.SaveIsIngame(0);
         UtilSaveManager.ClearLevelSave();
         GameManager.ClearAll();

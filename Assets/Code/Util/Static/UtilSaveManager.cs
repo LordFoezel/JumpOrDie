@@ -14,11 +14,10 @@ public static class UtilSaveManager
     }
 
     [System.Serializable]
-    public class SaveData
+    public class SaveGameData
     {
         public int maxLevel;
         public int actualLevel;
-        public int totalCoins;
         public int levelCoins;
         public int health;
         public float positionX;
@@ -31,17 +30,16 @@ public static class UtilSaveManager
 
     public static void SaveMaxLevel()
     {
-        SaveData savedData = LoadSaveData();
+        SaveGameData savedData = LoadSaveData();
         int actualGameLevel = GameManager.ActualGameLevel;
         int maxGameLevel = savedData.maxLevel;
         if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
-        SaveData newData = new()
+        SaveGameData newData = new()
         {
             maxLevel = maxGameLevel,
             actualLevel = actualGameLevel,
             health = savedData.health,
             levelCoins = savedData.levelCoins,
-            totalCoins = savedData.totalCoins,
             positionX = savedData.positionX,
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
@@ -49,20 +47,18 @@ public static class UtilSaveManager
             coins = savedData.coins,
             potions = savedData.potions,
         };
-        SaveSaveData(newData);
+        SaveData(newData);
     }
 
-    public static void SaveTotalCoins(int coins)
+    public static void ClearMaxLevel()
     {
-        SaveData savedData = LoadSaveData();
-        int newTotalCoins = savedData.totalCoins + coins;
-        SaveData newData = new()
+        SaveGameData savedData = LoadSaveData();
+        SaveGameData newData = new()
         {
-            levelCoins = 0,
-            totalCoins = newTotalCoins,
-            maxLevel = savedData.maxLevel,
+            maxLevel = 1,
             actualLevel = savedData.actualLevel,
             health = savedData.health,
+            levelCoins = savedData.levelCoins,
             positionX = savedData.positionX,
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
@@ -70,39 +66,37 @@ public static class UtilSaveManager
             coins = savedData.coins,
             potions = savedData.potions,
         };
-        SaveSaveData(newData);
+        SaveData(newData);
     }
 
     public static void SaveIsIngame(int isIngame)
     {
-        SaveData savedData = LoadSaveData();
-        SaveData newData = new()
+        SaveGameData savedData = LoadSaveData();
+        SaveGameData newData = new()
         {
             isIngame = isIngame,
             maxLevel = savedData.maxLevel,
             actualLevel = savedData.actualLevel,
             health = savedData.health,
             levelCoins = savedData.levelCoins,
-            totalCoins = savedData.totalCoins,
             positionX = savedData.positionX,
             positionY = savedData.positionY,
             traps = savedData.traps,
             coins = savedData.coins,
             potions = savedData.potions,
         };
-        SaveSaveData(newData);
+        SaveData(newData);
     }
 
-    public static void SaveSaveData()
+    public static void SaveLevelData()
     {
-        SaveData savedData = LoadSaveData();
-        SaveData newData = new()
+        SaveGameData savedData = LoadSaveData();
+        SaveGameData newData = new()
         {
             maxLevel = savedData.maxLevel,
             actualLevel = savedData.actualLevel,
             health = savedData.health,
             levelCoins = savedData.levelCoins,
-            totalCoins = savedData.totalCoins,
             positionX = savedData.positionX,
             positionY = savedData.positionY,
             isIngame = savedData.isIngame,
@@ -110,22 +104,21 @@ public static class UtilSaveManager
             coins = SavedCoinData(),
             potions = SavedPotionData(),
         };
-        SaveSaveData(newData);
+        SaveData(newData);
     }
 
     public static void SaveCurrentGame(int health, int coins, Vector2 position)
     {
-        SaveData savedData = LoadSaveData();
+        SaveGameData savedData = LoadSaveData();
         float x = position.x;
         float y = position.y;
         int actualGameLevel = GameManager.ActualGameLevel;
         int maxGameLevel = savedData.maxLevel;
         if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
-        SaveData newData = new()
+        SaveGameData newData = new()
         {
             maxLevel = maxGameLevel,
             actualLevel = actualGameLevel,
-            totalCoins = savedData.totalCoins,
             health = health,
             levelCoins = coins,
             isIngame = 1,
@@ -135,20 +128,18 @@ public static class UtilSaveManager
             coins = SavedCoinData(),
             potions = SavedPotionData(),
         };
-        UtilDebug.Log(actualGameLevel);
-        SaveSaveData(newData);
+        SaveData(newData);
     }
 
     public static void ClearLevelSave()
     {
-        SaveData savedData = LoadSaveData();
-        SaveData newData = new()
+        SaveGameData savedData = LoadSaveData();
+        SaveGameData newData = new()
         {
             maxLevel = savedData.maxLevel,
             actualLevel = savedData.actualLevel,
             health = savedData.health,
             levelCoins = 0,
-            totalCoins = savedData.totalCoins,
             positionX = 0,
             positionY = 0,
             isIngame = savedData.isIngame,
@@ -156,21 +147,21 @@ public static class UtilSaveManager
             coins = new List<int>(),
             potions = new List<int>(),
         };
-        SaveSaveData(newData);
+        SaveData(newData);
     }
 
     #region <<< Helpers >>>
 
-    public static void SaveSaveData(SaveData SaveData)
+    public static void SaveData(SaveGameData SaveData)
     {
         string json = JsonUtility.ToJson(SaveData);
         File.WriteAllText(filePath, json);
     }
 
-    public static SaveData LoadSaveData()
+    public static SaveGameData LoadSaveData()
     {
-        if (!File.Exists(filePath)) return new SaveData();
-        return JsonUtility.FromJson<SaveData>(File.ReadAllText(filePath));
+        if (!File.Exists(filePath)) return new SaveGameData();
+        return JsonUtility.FromJson<SaveGameData>(File.ReadAllText(filePath));
     }
 
     public static List<int> SavedCoinData()

@@ -15,7 +15,7 @@ public class PauseMenu : MonoBehaviour
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         loadGameButton = gameObject.transform.Find("LevelMenuPanel").gameObject.transform.Find("Panel").gameObject.transform.Find("Load").gameObject.GetComponent<Button>();
         continueButtonText = gameObject.transform.Find("LevelMenuPanel").gameObject.transform.Find("Panel").gameObject.transform.Find("Continue").gameObject.transform.Find("ContinueButtonText").GetComponent<Text>();
-        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
+        UtilSaveManager.SaveGameData savedData = UtilSaveManager.LoadSaveData();
         if (savedData.isIngame == 0) loadGameButton.interactable = false;
         else loadGameButton.interactable = true;
         responseText = gameObject.transform.Find("LevelMenuPanel").gameObject.transform.Find("Panel").gameObject.transform.Find("Response").GetComponent<Text>();
@@ -65,7 +65,7 @@ public class PauseMenu : MonoBehaviour
     public void Load()
     {
         GameManager.ClearAll();
-        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
+        UtilSaveManager.SaveGameData savedData = UtilSaveManager.LoadSaveData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 

@@ -16,9 +16,10 @@ public class MainMenu : MonoBehaviour
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
-        UtilSaveManager.SaveData saveData = UtilSaveManager.LoadSaveData();
+        UtilSaveManager.SaveGameData saveData = UtilSaveManager.LoadSaveData();
         maxLevel = saveData.maxLevel;
         InitButtons();
+        RefreshButtons();
         mainMenuPanel.SetActive(true);
         levelMenuPanel.SetActive(false);
         loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
@@ -34,23 +35,19 @@ public class MainMenu : MonoBehaviour
         buttons.Add(2, panel.Find(UtilEnum.GameLevel.Level02.ToString()).gameObject.GetComponent<Button>());
         buttons.Add(3, panel.Find(UtilEnum.GameLevel.Level03.ToString()).gameObject.GetComponent<Button>());
         buttons.Add(4, panel.Find(UtilEnum.GameLevel.Level04.ToString()).gameObject.GetComponent<Button>());
-        foreach (KeyValuePair<int, Button> button in buttons)
-        {
-            if (button.Key <= maxLevel) button.Value.interactable = true;
-            else button.Value.interactable = false;
-        }
     }
 
     public void NewGame()
     {
         UtilSaveManager.ClearLevelSave();
+        UtilSaveManager.ClearMaxLevel();
         levelLoader.LoadLevel(UtilEnum.GameLevel.Level01.ToString());
     }
 
     public void LoadGame()
     {
         GameManager.ClearAll();
-        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
+        UtilSaveManager.SaveGameData savedData = UtilSaveManager.LoadSaveData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
@@ -62,9 +59,18 @@ public class MainMenu : MonoBehaviour
 
     public void ActivateLevelChosePanel()
     {
-        UtilSaveManager.SaveData levelsBaseaves = UtilSaveManager.LoadSaveData();
-        maxLevel = levelsBaseaves.maxLevel;
+       RefreshButtons();
         levelMenuPanel.SetActive(true);
+    }
+
+    private void RefreshButtons(){
+        UtilSaveManager.SaveGameData gameData = UtilSaveManager.LoadSaveData();
+        maxLevel = gameData.maxLevel;
+        foreach (KeyValuePair<int, Button> button in buttons)
+        {
+            if (button.Key <= maxLevel) button.Value.interactable = true;
+            else button.Value.interactable = false;
+        }
     }
 
     public void DeactivateLevelChosePanel()

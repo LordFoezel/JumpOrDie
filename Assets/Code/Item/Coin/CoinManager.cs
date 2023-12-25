@@ -5,7 +5,7 @@ public class CoinManager
 {
     public void LoadCoins()
     {
-        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
+        UtilSaveManager.SaveGameData savedData = UtilSaveManager.LoadSaveData();
         List<int> coins = savedData.coins;
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("Coin");
         int index = 0;
