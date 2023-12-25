@@ -8,9 +8,7 @@ Player kan springen, Links und Rechts gehen und Sachen aufsammeln.
 Es gibt Fallen und Knöpfe um diese zu entschärfen
 
 Step 1:
-Speichern und laden
-Level 2 und 3 und 4
-Bei schaden animation abschpielen mit blut
+Bei schaden animation abschpielen
 
 Step 2:
 Player kann Schaden machen
@@ -26,7 +24,7 @@ Schöneres UI
 
 
 Aktuelle Pendenzen:
-Trap per save
-Chose level and save things
-Bei schaden animation abschpielen mit blut
+Congratulation scene when finish the last level with mainmenu button and "abspann"
+option page in mainmenu with gameinfo and game difficultly options
+fix load in pause menue
 

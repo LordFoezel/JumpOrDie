@@ -3,14 +3,15 @@ using System.Collections.Generic;
 
 public class TrapManager
 {
-    public TrapManager()
-    {
-        AddTraps();
-    }
-
-    public void AddTraps()
+    public void LoadTraps()
     {
         SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        if(UtilBool.IntToBool(savedData.isIngame)) LoadOldTraps(savedData);
+        else LoadNewTraps();
+    }
+
+    public void LoadOldTraps(SaveGameData savedData)
+    {
         List<TrapData> trapData = savedData.traps;
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpikeTrap");
         int index = 0;
@@ -20,6 +21,18 @@ public class TrapManager
             if (trapData.Count != 0) {
                 isReady = UtilBool.IntToBool(trapData[index].isReady);
             }
+            AddTrap(index, isReady);
+            index += 1;
+        }
+    }
+
+      public void LoadNewTraps()
+    {
+        GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("SpikeTrap");
+        int index = 0;
+        foreach (GameObject spawnPoint in spawnPoints)
+        {
+            bool isReady = true;
             AddTrap(index, isReady);
             index += 1;
         }

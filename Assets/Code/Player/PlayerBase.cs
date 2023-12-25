@@ -71,7 +71,10 @@ public class PlayerBase : ITickable
             isInteracting = true;
             if (!focusObject) return;
             TrapSwitch trapSwitch = focusObject.GetComponent<TrapSwitch>();
-            if (trapSwitch) trapSwitch.Switch();
+            if (trapSwitch) {
+                trapSwitch.Switch();
+                StartAnimNod();
+            }
         }
         else
         {
@@ -306,6 +309,15 @@ public class PlayerBase : ITickable
         GameObject.Destroy(canvasObject);
     }
 
+    public void StartAnimNod(){
+        animator.SetTrigger("nod");
+
+    }
+
+     public void StartAnimHit(){
+        animator.SetTrigger("hit");
+    }
+
     #endregion
 
     #region  <<< Public getters >>>
@@ -327,6 +339,7 @@ public class PlayerBase : ITickable
         }
         else HitPoints -= damage;
         healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(HitPoints, hitPointsMax, healthBarWidth), 20f);
+        StartAnimHit();
     }
 
     public void TakeHealing(int healing)

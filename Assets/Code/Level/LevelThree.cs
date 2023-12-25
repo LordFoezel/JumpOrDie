@@ -9,6 +9,8 @@ public class LevelThree : LevelsBase
         CoinManager = new CoinManager();
         PlayerManager.AddPlayer();
         CoinManager.LoadCoins();
+        PotionManager.LoadPotions();
+        TrapManager.LoadTraps();
         base.InitLevel();
         SaveLevel();
     }

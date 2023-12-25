@@ -7,8 +7,10 @@ public class LevelFour : LevelsBase
         TrapManager = new TrapManager();
         PotionManager = new PotionManager();
         CoinManager = new CoinManager();
+        PotionManager.LoadPotions();
         PlayerManager.AddPlayer();
         CoinManager.LoadCoins();
+        TrapManager.LoadTraps();
         base.InitLevel();
         SaveLevel();
     }

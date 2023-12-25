@@ -41,6 +41,7 @@ public class MainMenu : MonoBehaviour
     {
         UtilSaveManager.ClearLevelSave();
         UtilSaveManager.ClearMaxLevel();
+        UtilSaveManager.SaveIsIngame(0);
         levelLoader.LoadLevel(UtilEnum.GameLevel.Level01.ToString());
     }
 

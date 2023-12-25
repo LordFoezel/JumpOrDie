@@ -152,7 +152,7 @@ public static class UtilSaveManager
         return savedData;
     }
 
-        public static List<int> SavedPotionData()
+    public static List<int> SavedPotionData()
     {
         List<int> savedData = new List<int>();
         foreach (KeyValuePair<int, PotionBase> item in GameManager.Potions)
