@@ -1,26 +1,19 @@
 Story:
 tbd
 
-Gameplay:
-Player ist immer im Zentrum
-Player hat Lebenspunkte
-Player kan springen, Links und Rechts gehen und Sachen aufsammeln.
-Es gibt Fallen und Knöpfe um diese zu entschärfen
-
 Step 1:
-Bei schaden animation abschpielen
+new LevelExit (Portal) 
 
 Step 2:
-Player kann Schaden machen
-Feinde die Schaden machen
-
-Step 3:
 Animationen für Träke und Coins
 
-Step 4:
+Step 3:
 Sounds
 Schöneres UI
 
+Step 4:
+Player kann Schaden machen
+Feinde die Schaden machen
 
 
 Aktuelle Pendenzen:
