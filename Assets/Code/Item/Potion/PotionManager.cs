@@ -5,7 +5,7 @@ public class PotionManager
 {
     public PotionManager()
     {
-        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
         List<int> potions = savedData.potions;
         GameObject[] spawnPoints = GameObject.FindGameObjectsWithTag("PotionHealth");
         int index = 0;

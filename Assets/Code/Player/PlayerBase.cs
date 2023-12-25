@@ -207,7 +207,7 @@ public class PlayerBase : ITickable
         Transform playerStart = GameObject.FindGameObjectWithTag("PlayerStart").transform;
         playerObject.transform.position = new Vector3(playerStart.position.x, playerStart.position.y, 0);
         animator = playerObject.transform.Find("Character").gameObject.GetComponent<Animator>();
-        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
         totalCoins = savedData.totalCoins;
     }
 

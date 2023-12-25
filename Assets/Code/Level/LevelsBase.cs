@@ -43,13 +43,6 @@ public class LevelsBase : LevelLoaderBase
         }
     }
 
-    public void LoadPlayerData()
-    {
-        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
-        GameManager.Player.SetPlayerData(savedData.health, savedData.levelCoins, new Vector2(savedData.positionX, savedData.positionY));
-
-    }
-
     private void SetTickEvent()
     {
         OnUpdateEvent.Invoke();

@@ -16,14 +16,13 @@ public class MainMenu : MonoBehaviour
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
-        UtilSaveManager.LevelData levelsBaseaves = UtilSaveManager.LoadLevelData();
-        maxLevel = levelsBaseaves.maxLevel;
+        UtilSaveManager.SaveData saveData = UtilSaveManager.LoadSaveData();
+        maxLevel = saveData.maxLevel;
         InitButtons();
         mainMenuPanel.SetActive(true);
         levelMenuPanel.SetActive(false);
         loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
-        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
-        if (savedData.isIngame == 0) loadGameButton.interactable = false;
+        if (saveData.isIngame == 0) loadGameButton.interactable = false;
         else loadGameButton.interactable = true;
     }
 
@@ -51,7 +50,7 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         GameManager.ClearAll();
-        UtilSaveManager.LevelData savedData = UtilSaveManager.LoadLevelData();
+        UtilSaveManager.SaveData savedData = UtilSaveManager.LoadSaveData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
@@ -63,7 +62,7 @@ public class MainMenu : MonoBehaviour
 
     public void ActivateLevelChosePanel()
     {
-        UtilSaveManager.LevelData levelsBaseaves = UtilSaveManager.LoadLevelData();
+        UtilSaveManager.SaveData levelsBaseaves = UtilSaveManager.LoadSaveData();
         maxLevel = levelsBaseaves.maxLevel;
         levelMenuPanel.SetActive(true);
     }
@@ -74,22 +73,30 @@ public class MainMenu : MonoBehaviour
     }
 
     public void StartLevel1()
-    {
+    {   
+        UtilSaveManager.ClearLevelSave();
+        UtilSaveManager.SaveIsIngame(0);
         levelLoader.LoadLevel("Level01");
     }
 
     public void StartLevel2()
     {
+        UtilSaveManager.ClearLevelSave();
+        UtilSaveManager.SaveIsIngame(0);
         levelLoader.LoadLevel("Level02");
     }
 
      public void StartLevel3()
-    {
+    {        
+        UtilSaveManager.ClearLevelSave();
+        UtilSaveManager.SaveIsIngame(0);
         levelLoader.LoadLevel("Level03");
     }
 
      public void StartLevel4()
-    {
+    {        
+        UtilSaveManager.ClearLevelSave();
+        UtilSaveManager.SaveIsIngame(0);
         levelLoader.LoadLevel("Level04");
     }
 }
