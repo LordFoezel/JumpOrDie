@@ -8,6 +8,7 @@ public class MainMenu : MonoBehaviour
     GameObject mainMenuPanel;
     GameObject levelMenuPanel;
     GameObject congratulationPanel;
+    GameObject optionsPanel;
     Button loadGameButton;
     int maxLevel = 1;
     public Dictionary<int, Button> buttons;
@@ -18,12 +19,14 @@ public class MainMenu : MonoBehaviour
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
         congratulationPanel = GameObject.Find("CongratulationPanel").gameObject;
+        optionsPanel = GameObject.Find("OptionsPanel").gameObject;
         SaveGameData saveData = UtilSaveManager.LoadSaveData();
         maxLevel = saveData.maxLevel;
         InitButtons();
         RefreshButtons();
         mainMenuPanel.SetActive(true);
         levelMenuPanel.SetActive(false);
+        optionsPanel.SetActive(false);
         if(GameManager.GameIsEnded) congratulationPanel.SetActive(true);
         else congratulationPanel.SetActive(false);
         loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
@@ -62,17 +65,6 @@ public class MainMenu : MonoBehaviour
         Application.Quit();
     }
 
-      public void DeactivateCongratulationPanel()
-    {       
-        congratulationPanel.SetActive(false);
-    }
-
-    public void ActivateLevelChosePanel()
-    {
-       RefreshButtons();
-        levelMenuPanel.SetActive(true);
-    }
-
     private void RefreshButtons(){
         SaveGameData gameData = UtilSaveManager.LoadSaveData();
         maxLevel = gameData.maxLevel;
@@ -83,9 +75,8 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    public void DeactivateLevelChosePanel()
-    {
-        levelMenuPanel.SetActive(false);
+    public void DifficultSlider(){
+        // Do Things
     }
 
     public void StartLevel1()
@@ -118,5 +109,32 @@ public class MainMenu : MonoBehaviour
 
     public void AvtivateCongratulationPanel() {
         congratulationPanel.SetActive(true);
+    }
+
+    
+    public void DeactivateLevelChosePanel()
+    {
+        levelMenuPanel.SetActive(false);
+    }
+
+    public void DeactivateOptionsPanel()
+    {
+        optionsPanel.SetActive(false);
+    }
+
+     public void ActivateOptionsPanel()
+    {
+        optionsPanel.SetActive(true);
+    }
+
+    public void DeactivateCongratulationPanel()
+    {       
+        congratulationPanel.SetActive(false);
+    }
+
+    public void ActivateLevelChosePanel()
+    {
+       RefreshButtons();
+        levelMenuPanel.SetActive(true);
     }
 }

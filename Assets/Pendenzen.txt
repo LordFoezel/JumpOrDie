@@ -17,5 +17,5 @@ Feinde die Schaden machen
 
 
 Aktuelle Pendenzen:
-option page in mainmenu with gameinfo and game difficultly options
+option page in mainmenu with gameinfo and game difficultly options //-> DifficultSlider
 
