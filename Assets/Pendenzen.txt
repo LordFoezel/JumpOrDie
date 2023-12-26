@@ -17,7 +17,5 @@ Feinde die Schaden machen
 
 
 Aktuelle Pendenzen:
-Congratulation scene when finish the last level with mainmenu button and "abspann"
 option page in mainmenu with gameinfo and game difficultly options
-fix load in pause menue
 

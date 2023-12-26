@@ -42,6 +42,7 @@ public class PlayerBase : ITickable
     {
         if (!playerInput) return;
         PauseGame();
+        base.Tick();
         if (!isReady) return;
         ControlePlayer();
     }

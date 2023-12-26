@@ -7,6 +7,7 @@ public class MainMenu : MonoBehaviour
     UtilLevelLoader levelLoader;
     GameObject mainMenuPanel;
     GameObject levelMenuPanel;
+    GameObject congratulationPanel;
     Button loadGameButton;
     int maxLevel = 1;
     public Dictionary<int, Button> buttons;
@@ -16,12 +17,15 @@ public class MainMenu : MonoBehaviour
         levelLoader = gameObject.AddComponent<UtilLevelLoader>();
         mainMenuPanel = GameObject.Find("MainMenuPanel").gameObject;
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
+        congratulationPanel = GameObject.Find("CongratulationPanel").gameObject;
         SaveGameData saveData = UtilSaveManager.LoadSaveData();
         maxLevel = saveData.maxLevel;
         InitButtons();
         RefreshButtons();
         mainMenuPanel.SetActive(true);
         levelMenuPanel.SetActive(false);
+        if(GameManager.GameIsEnded) congratulationPanel.SetActive(true);
+        else congratulationPanel.SetActive(false);
         loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
         if (saveData.isIngame == 0) loadGameButton.interactable = false;
         else loadGameButton.interactable = true;
@@ -56,6 +60,11 @@ public class MainMenu : MonoBehaviour
     {
         GameManager.ClearAll();
         Application.Quit();
+    }
+
+      public void DeactivateCongratulationPanel()
+    {       
+        congratulationPanel.SetActive(false);
     }
 
     public void ActivateLevelChosePanel()
@@ -105,5 +114,9 @@ public class MainMenu : MonoBehaviour
         UtilSaveManager.ClearLevelSave();
         UtilSaveManager.SaveIsIngame(0);
         levelLoader.LoadLevel("Level04");
+    }
+
+    public void AvtivateCongratulationPanel() {
+        congratulationPanel.SetActive(true);
     }
 }

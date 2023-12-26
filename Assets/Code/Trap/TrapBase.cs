@@ -23,6 +23,7 @@ public class TrapBase : ITickable
 
     public override void Tick()
     {
+        base.Tick();
         if (makeDamage && IsActive && (lastDamage + 1f) <= Time.time)
         {
             GameManager.Player.TakeDamage(damage);
