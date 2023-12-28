@@ -5,7 +5,7 @@ public class TrapManager
 {
     public void LoadTraps()
     {
-        SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        SaveGameData savedData = UtilSaveManager.LoadData();
         if(UtilBool.IntToBool(savedData.isIngame)) LoadOldTraps(savedData);
         else LoadNewTraps();
     }

@@ -5,7 +5,7 @@ public class PotionManager
 {
     public void LoadPotions()
     {
-        SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        SaveGameData savedData = UtilSaveManager.LoadData();
         if(UtilBool.IntToBool(savedData.isIngame)) LoadOldPotions(savedData);
         else LoadNewPotions();
     }

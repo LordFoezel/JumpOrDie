@@ -10,8 +10,10 @@ public class MainMenu : MonoBehaviour
     GameObject congratulationPanel;
     GameObject optionsPanel;
     Button loadGameButton;
+    Slider difficultSlider;
     int maxLevel = 1;
     public Dictionary<int, Button> buttons;
+    public Dictionary<string, Text> keys;
 
     void Awake()
     {
@@ -20,7 +22,7 @@ public class MainMenu : MonoBehaviour
         levelMenuPanel = GameObject.Find("LevelMenuPanel").gameObject;
         congratulationPanel = GameObject.Find("CongratulationPanel").gameObject;
         optionsPanel = GameObject.Find("OptionsPanel").gameObject;
-        SaveGameData saveData = UtilSaveManager.LoadSaveData();
+        SaveGameData saveData = UtilSaveManager.LoadData();
         maxLevel = saveData.maxLevel;
         InitButtons();
         RefreshButtons();
@@ -32,6 +34,35 @@ public class MainMenu : MonoBehaviour
         loadGameButton = mainMenuPanel.transform.Find("LoadGameButton").gameObject.GetComponent<Button>();
         if (saveData.isIngame == 0) loadGameButton.interactable = false;
         else loadGameButton.interactable = true;
+        InitOptions();
+        RefreshOptions();
+    }
+
+    private void InitOptions(){
+        GameObject keyObject = optionsPanel.transform.Find("Panel").gameObject.transform.Find("Keys").gameObject;
+        keys = new Dictionary<string, Text>();
+        keys.Add("left", keyObject.transform.Find("KeyLeft").gameObject.GetComponent<Text>());
+        keys.Add("right", keyObject.transform.Find("KeyRight").gameObject.GetComponent<Text>());
+        keys.Add("jump", keyObject.transform.Find("KeyJump").gameObject.GetComponent<Text>());
+        keys.Add("interact", keyObject.transform.Find("KeyInteract").gameObject.GetComponent<Text>());
+        keys.Add("pause", keyObject.transform.Find("KeyPause").gameObject.GetComponent<Text>());
+        difficultSlider = optionsPanel.transform.Find("Panel").gameObject.transform.Find("Panel").gameObject.transform.Find("Slider").gameObject.GetComponent<Slider>();
+        PersistGameData persistData = UtilSaveManager.LoadPersistData();
+        if(persistData.difficultLevel == 0) persistData = UtilSaveManager.clearPersistData();
+    }
+
+    private void RefreshOptions(){
+        PersistGameData persistData = UtilSaveManager.LoadPersistData();
+        difficultSlider.value = persistData.difficultLevel;
+        foreach (KeyValuePair<string, Text> keyItem in keys)
+        {
+            if(keyItem.Key == "left") keyItem.Value.text = persistData.left;
+            if(keyItem.Key == "right") keyItem.Value.text = persistData.right;
+            if(keyItem.Key == "jump") keyItem.Value.text = persistData.jump;
+            if(keyItem.Key == "interact") keyItem.Value.text = persistData.interact;
+            if(keyItem.Key == "pause") keyItem.Value.text = persistData.pause;
+        }
+        GameManager.Difficult = persistData.difficultLevel;
     }
 
     private void InitButtons()
@@ -42,6 +73,12 @@ public class MainMenu : MonoBehaviour
         buttons.Add(2, panel.Find(UtilEnum.GameLevel.Level02.ToString()).gameObject.GetComponent<Button>());
         buttons.Add(3, panel.Find(UtilEnum.GameLevel.Level03.ToString()).gameObject.GetComponent<Button>());
         buttons.Add(4, panel.Find(UtilEnum.GameLevel.Level04.ToString()).gameObject.GetComponent<Button>());
+    }
+
+    public void SetDefault()
+    {
+        UtilSaveManager.clearPersistData();  
+        RefreshOptions();
     }
 
     public void NewGame()
@@ -55,7 +92,7 @@ public class MainMenu : MonoBehaviour
     public void LoadGame()
     {
         GameManager.ClearAll();
-        SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        SaveGameData savedData = UtilSaveManager.LoadData();
         levelLoader.LoadLevel(MapperLevel.GetLevelName(savedData.actualLevel));
     }
 
@@ -66,7 +103,7 @@ public class MainMenu : MonoBehaviour
     }
 
     private void RefreshButtons(){
-        SaveGameData gameData = UtilSaveManager.LoadSaveData();
+        SaveGameData gameData = UtilSaveManager.LoadData();
         maxLevel = gameData.maxLevel;
         foreach (KeyValuePair<int, Button> button in buttons)
         {
@@ -76,7 +113,9 @@ public class MainMenu : MonoBehaviour
     }
 
     public void DifficultSlider(){
-        // Do Things
+        if(!difficultSlider) return; 
+        UtilSaveManager.SavePersitDataDifficult((int)difficultSlider.value);
+        GameManager.Difficult = (int)difficultSlider.value;
     }
 
     public void StartLevel1()
@@ -134,7 +173,7 @@ public class MainMenu : MonoBehaviour
 
     public void ActivateLevelChosePanel()
     {
-       RefreshButtons();
+        RefreshButtons();
         levelMenuPanel.SetActive(true);
     }
 }

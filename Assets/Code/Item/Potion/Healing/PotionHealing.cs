@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PotionHealing : PotionBase
 {
-    readonly int healing = 1;
+    private int healing = 1;
     
     public PotionHealing(int id, Transform potionPosition)
     {
@@ -10,6 +10,22 @@ public class PotionHealing : PotionBase
         this.potionPosition = potionPosition;
         filename = "Prefaps/Potion/PotionHealth";
         InitPotion();
+        SetHealing();
+    }
+
+     public void SetHealing()
+    {
+        switch(GameManager.Difficult){
+            case 1:
+            healing = 3;
+            return;
+            case 2:
+            healing = 2;
+            return;
+            case 3:
+            healing = 1;
+            return;
+        }
     }
 
     public override void UsePotion(Collider2D collider)

@@ -9,6 +9,7 @@ public static class GameManager
     public static Dictionary<int, PotionBase> Potions { get; set; } = new Dictionary<int, PotionBase>();
     public static Dictionary<int, CoinBase> Coins { get; set; } = new Dictionary<int, CoinBase>();
     public static bool GameIsEnded { get; set; } = false;
+    public static int Difficult { get; set; } = 0;
 
     public static void ClearAll()
     {

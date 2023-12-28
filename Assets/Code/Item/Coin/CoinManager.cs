@@ -5,7 +5,7 @@ public class CoinManager
 {
     public void LoadCoins()
     {        
-        SaveGameData savedData = UtilSaveManager.LoadSaveData();
+        SaveGameData savedData = UtilSaveManager.LoadData();
         if(UtilBool.IntToBool(savedData.isIngame)) LoadOldCoins(savedData);
         else LoadNewCoins();
     }

@@ -34,6 +34,10 @@ public class TrapBase : ITickable
         }
     }
 
+    public virtual void SetDamage(){
+        damage = 1;
+    }
+
     public void Remove()
     {
         GameObject.Destroy(trapObject);
@@ -46,6 +50,7 @@ public class TrapBase : ITickable
     {
         LoadTrap();
         LoadColliders();
+        SetDamage();
     }
 
     public void SetIsReady(bool isReady)

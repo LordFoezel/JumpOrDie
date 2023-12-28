@@ -4,11 +4,12 @@ using System.Collections.Generic;
 
 public static class UtilSaveManager
 {
-    private static readonly string filePath = Path.Combine(Application.persistentDataPath, "SaveData.json");
+    private static readonly string filePathSaveData = Path.Combine(Application.persistentDataPath, "SaveData.json");
+    private static readonly string filePathGameData = Path.Combine(Application.persistentDataPath, "GameData.json");
 
     public static void SaveMaxLevel()
     {
-        SaveGameData savedData = LoadSaveData();
+        SaveGameData savedData = LoadData();
         int actualGameLevel = GameManager.ActualGameLevel;
         int maxGameLevel = savedData.maxLevel;
         if (actualGameLevel > maxGameLevel) maxGameLevel = actualGameLevel;
@@ -30,7 +31,7 @@ public static class UtilSaveManager
 
     public static void ClearMaxLevel()
     {
-        SaveGameData savedData = LoadSaveData();
+        SaveGameData savedData = LoadData();
         SaveGameData newData = new()
         {
             maxLevel = 1,
@@ -49,7 +50,7 @@ public static class UtilSaveManager
 
     public static void SaveIsIngame(int isIngame)
     {
-        SaveGameData savedData = LoadSaveData();
+        SaveGameData savedData = LoadData();
         SaveGameData newData = new()
         {
             isIngame = isIngame,
@@ -68,7 +69,7 @@ public static class UtilSaveManager
 
     public static void SaveLevelData()
     {
-        SaveGameData savedData = LoadSaveData();
+        SaveGameData savedData = LoadData();
         SaveGameData newData = new()
         {
             maxLevel = savedData.maxLevel,
@@ -87,7 +88,7 @@ public static class UtilSaveManager
 
     public static void SaveCurrentGame(int health, int coins, Vector2 position)
     {
-        SaveGameData savedData = LoadSaveData();
+        SaveGameData savedData = LoadData();
         float x = position.x;
         float y = position.y;
         int actualGameLevel = GameManager.ActualGameLevel;
@@ -111,7 +112,7 @@ public static class UtilSaveManager
 
     public static void ClearLevelSave()
     {
-        SaveGameData savedData = LoadSaveData();
+        SaveGameData savedData = LoadData();
         SaveGameData newData = new()
         {
             maxLevel = savedData.maxLevel,
@@ -128,18 +129,54 @@ public static class UtilSaveManager
         SaveData(newData);
     }
 
+    public static PersistGameData clearPersistData(){
+        PersistGameData cleanData = new PersistGameData()
+        {
+            difficultLevel = 1,
+            left = "A",
+            right = "D",
+            jump = "Space",
+            interact = "F",
+            pause = "Esc",
+        };
+        SavePersitData(cleanData);
+        return cleanData;
+    }
+
+    public static void SavePersitDataDifficult(int difficult){
+        PersistGameData data = LoadPersistData();
+        data.difficultLevel = difficult;
+        SavePersitData(data);
+    }
+
     #region <<< Helpers >>>
 
+    // Gamedata
     public static void SaveData(SaveGameData SaveData)
     {
         string json = JsonUtility.ToJson(SaveData);
-        File.WriteAllText(filePath, json);
+        File.WriteAllText(filePathSaveData, json);
     }
 
-    public static SaveGameData LoadSaveData()
+    // Gamedata
+    public static SaveGameData LoadData()
     {
-        if (!File.Exists(filePath)) return new SaveGameData();
-        return JsonUtility.FromJson<SaveGameData>(File.ReadAllText(filePath));
+        if (!File.Exists(filePathSaveData)) return new SaveGameData();
+        return JsonUtility.FromJson<SaveGameData>(File.ReadAllText(filePathSaveData));
+    }
+
+    // PersistData
+    public static void SavePersitData(PersistGameData SaveData)
+    {
+        string json = JsonUtility.ToJson(SaveData);
+        File.WriteAllText(filePathGameData, json);
+    }
+
+    // PersistData
+    public static PersistGameData LoadPersistData()
+    {
+        if (!File.Exists(filePathGameData)) return new PersistGameData();
+        return JsonUtility.FromJson<PersistGameData>(File.ReadAllText(filePathGameData));
     }
 
     public static List<int> SavedCoinData()
