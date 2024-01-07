@@ -15,6 +15,7 @@ public class CoinBase
         this.spawnPoint = spawnPoint;
         filename = "Prefaps/Coin/Coin";
         InitCoin();
+        UtilSoundManager.AddSound(coinObject, UtilEnum.Sounds.Coins);
     }
 
     void InitCoin()
@@ -52,6 +53,7 @@ public class CoinBase
     void Collect(Collider2D collider)
     {
         if (used) return;
+        UtilSoundManager.PlaySound(coinObject, UtilEnum.Sounds.Coins);
         GameObject.Destroy(coinObject);
         GameManager.Coins.Remove(id);
         InventoryBase inventory = GameManager.Player.Inventory;

@@ -9,6 +9,7 @@ public static class UtilCamera
     {
 #nullable disable
         GameObject cameraObject = new GameObject("Camera");
+        cameraObject.AddComponent<AudioListener>();
         Camera camera = AddCamera(cameraObject);
         if (!parentObject) return cameraObject;
         camera.transform.position = parentObject.transform.position;

@@ -168,6 +168,7 @@ public class MainMenu : MonoBehaviour
 
     public void DeactivateCongratulationPanel()
     {       
+        GameManager.GameIsEnded = false;
         congratulationPanel.SetActive(false);
     }
 
