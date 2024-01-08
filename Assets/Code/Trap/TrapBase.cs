@@ -121,6 +121,7 @@ public class TrapBase : ITickable
         if (!IsReady) return;
         IsActive = true;
         animator.SetBool("isActive", true);
+        UtilSoundManager.PlaySoundSpikeTrap(trapObject);
     }
 
     private void HandleColliderTriggerExit(GameObject gameObject, Collider2D collider)

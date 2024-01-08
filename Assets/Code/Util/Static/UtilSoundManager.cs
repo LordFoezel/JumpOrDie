@@ -3,23 +3,31 @@ using UnityEngine;
 
 public static class UtilSoundManager
 {
-    public static void PlaySound(GameObject parent, UtilEnum.Sounds name = UtilEnum.Sounds.NoSound)
-    {
-        AudioSource audioSource = parent.GetComponent<AudioSource>();
-        if (name != UtilEnum.Sounds.NoSound)
-        {
-            AudioClip clip = Resources.Load<AudioClip>("Sounds/" + name.ToString());
-            audioSource.clip = clip;
-        }
-        audioSource.Play();
+
+    public static void PlaySoundCoin(GameObject parent){
+        PlaySound(parent, UtilEnum.Sounds.Coin, 1);
     }
 
-    public static AudioSource AddSound(GameObject parent, UtilEnum.Sounds name)
+      public static void PlaySoundHit(GameObject parent){
+        PlaySound(parent, UtilEnum.Sounds.Hit, 1);
+    }
+
+      public static void PlaySoundHealing(GameObject parent){
+        PlaySound(parent, UtilEnum.Sounds.Healing, 2);
+    }
+
+      public static void PlaySoundSpikeTrap(GameObject parent){
+        PlaySound(parent, UtilEnum.Sounds.SpikeTrap, 1);
+    }
+
+    public static void PlaySound(GameObject parent, UtilEnum.Sounds name, int destroyTime)
     {
-        AudioSource audioSource = parent.AddComponent<AudioSource>();
+        GameObject soundObject = new GameObject("sound_"+name.ToString());
+        soundObject.transform.position = parent.transform.position;
+        AudioSource audioSource = soundObject.AddComponent<AudioSource>();
         AudioClip clip = Resources.Load<AudioClip>("Sounds/" + name.ToString());
         audioSource.clip = clip;
-        audioSource.playOnAwake = false;
-        return audioSource;
+        audioSource.Play();
+        GameObject.Destroy(soundObject, destroyTime);
     }
 }

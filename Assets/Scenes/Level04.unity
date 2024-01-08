@@ -7825,7 +7825,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4247452427629611075, guid: cd3118098522be9498f4c6aa1a5c6838, type: 3}
       propertyPath: m_Name
-      value: SpikeTrap4
+      value: SpikeTrap3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd3118098522be9498f4c6aa1a5c6838, type: 3}

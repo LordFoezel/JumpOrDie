@@ -213,6 +213,7 @@ public class PlayerBase : ITickable
     private void LoadCamera()
     {
         UtilCamera.CreateCamera(playerObject);
+        playerObject.AddComponent<AudioListener>();
     }
 
     private void LoadInputActions()
@@ -341,6 +342,8 @@ public class PlayerBase : ITickable
         else HitPoints -= damage;
         healthBarRect.sizeDelta = new Vector2(UtilHealthBarPercent.getSizeOfHealthBar(HitPoints, hitPointsMax, healthBarWidth), 20f);
         StartAnimHit();
+        UtilSoundManager.PlaySoundHit(playerObject);
+
     }
 
     public void TakeHealing(int healing)

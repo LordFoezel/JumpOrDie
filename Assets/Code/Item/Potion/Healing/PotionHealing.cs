@@ -31,6 +31,7 @@ public class PotionHealing : PotionBase
     public override void UsePotion(Collider2D collider)
     {
         if (used) return;
+        UtilSoundManager.PlaySoundHealing(potionObject);
         GameObject.Destroy(potionObject);
         GameManager.Potions.Remove(id);
         GameManager.Player.TakeHealing(healing);
